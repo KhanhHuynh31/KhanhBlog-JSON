@@ -1,0 +1,173 @@
+.category__content {
+    display: flex;
+    margin-top: 200px;
+    padding-top: 20px;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    padding-bottom: 40px;
+
+}
+
+.content__main {
+    width: 73%;
+}
+
+.content__list {
+    width: 22%;
+}
+
+.content__list h3 {
+    font-family: "Nunito Bold";
+    font-size: 25px;
+}
+
+
+.content__list ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+
+}
+
+.content__list li {
+    padding: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.content__list li:hover {
+    background-color: #eef0f0;
+}
+
+.category__active {
+    color: #646eff;
+}
+
+.category__header {
+    height: 300px;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 80px;
+    left: 0;
+    background-image: url("../../../assets/images/background.gif");
+    text-align: center;
+}
+
+.header__category h2 {
+    font-family: "Nunito Bold";
+    font-size: 40px;
+    color: #fff;
+    padding-top: 50px;
+    transition: 0.3s;
+
+}
+
+.header__category hr {
+    width: 50px;
+    height: 2px;
+    background-color: #646eff;
+    border: none;
+
+}
+
+.content__order {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 60px;
+
+}
+
+.order__right ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.order__right li {
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #888;
+
+}
+
+.order__right a {
+    color: #888;
+    cursor: pointer;
+}
+
+.order__right a:hover {
+    color: #646eff;
+}
+
+.content__main hr {
+    margin: 0 60px 20px;
+}
+
+/* RESPONSIVE */
+@media only screen and (max-width: 1160px) {
+    .content__list {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .content__main {
+        width: 100%;
+    }
+
+    .category__content {
+        padding-top: 20px;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+
+    .category__header {
+        top: 80px;
+        height: 200px;
+
+    }
+
+    .category__content {
+        margin-top: 100px;
+
+    }
+
+    .header__category h2 {
+
+        padding-top: 0;
+    }
+
+    .content__order {
+        padding: 0 30px;
+
+    }
+
+    .content__main hr {
+        margin: 0 30px 20px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .content__list {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .category__header {
+        top: 70px;
+
+    }
+
+    .content__order {
+        padding: 0 20px;
+
+    }
+
+    .content__main hr {
+        margin: 0 20px 20px;
+    }
+}

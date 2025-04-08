@@ -1,0 +1,84 @@
+.modal__background {
+  display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+.active__modal .modal__background{
+  display: block;
+}
+.modal__background .modal__content {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.31),
+    0 24px 36px -8px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  max-height: calc(100% - 64px);
+  max-width: 550px;
+  width: calc(100% - 90px);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 7px;
+  margin: 25px auto;
+  padding: 20px;
+}
+.modal__search {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Ensure the container takes full width */
+  margin-bottom: 20px;
+}
+
+.modal__form {
+  flex: 1; /* Allow form to grow and fill available space */
+  margin-right: 10px; /* Optional: Add some space between input and button */
+}
+
+.modal__input {
+  width: 100%; /* Ensure input takes full width of the form */
+  min-width: 0; /* Prevent overflow issues */
+  height: 40px; /* Adjust input height as needed */
+  border-radius: 8px;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
+}
+.modal__input:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+}
+.modal__icon{
+  height: 25px;
+  width: 25px;
+  
+}
+.modal__button {
+  cursor: pointer; /* Change cursor to pointer on hover */
+  height: 40px;
+  width: 40px;
+  color: gray;
+}
+.modal__button:hover {
+  color: black;
+}
+.modal__background hr {
+  margin: 0 -20px;
+}
+.modal__result{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.modal__result .posts__item{
+  box-sizing: border-box;
+  margin: 5px auto;
+  width: 100%;
+}

@@ -1,0 +1,175 @@
+.admin__menu {
+  width: 240px;
+  padding: 20px;
+  border-right: 1px solid rgb(229, 234, 239);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 40px);
+}
+.logo__title {
+  margin: 0;
+}
+.logo__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.menu__icon {
+  height: 30px;
+  width: 30px;
+  color: black;
+}
+.menu__icon:hover {
+  color: black;
+}
+li {
+  list-style: none;
+}
+ul {
+  padding: 0;
+}
+.label__menu {
+  padding: 7px 0;
+}
+.list__item {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.2s;
+  margin-bottom: 5px;
+}
+.list__item span {
+  transition: 0.2s;
+}
+.list__item:hover {
+  background: #ecf2ff;
+}
+.list__item:hover span {
+  color: #5d87ff;
+}
+.list__item:hover .logo__icon {
+  color: #5d87ff;
+}
+.active__admin {
+  background-color: #5d87ff;
+  color: white;
+}
+.active__admin span {
+  color: white;
+}
+.admin__link {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin__icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo__icon {
+  width: 20px;
+  height: 20px;
+  color: black;
+  transition: 0.2s;
+  text-align: center;
+}
+.active__admin .logo__icon {
+  color: white;
+}
+
+.option__list {
+  margin-bottom: 0;
+  display: none;
+}
+.option__list:hover {
+  background-color: white;
+}
+.open__list {
+  display: block;
+}
+.account__menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #e8f7ff;
+  border-radius: 5px;
+}
+.account__content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.account__content .logo__icon {
+  width: 30px;
+  height: 30px;
+}
+.account__content p {
+  margin: 0;
+}
+.account__content span {
+  font-size: 12px;
+}
+.logout__icon {
+  height: 25px;
+  width: 25px;
+  color: #5d87ff;
+  cursor: pointer;
+}
+.logout__menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.overlay__text {
+  font-size: 12px;
+  border-radius: 5px;
+  position: absolute;
+  width: max-content;
+  top: -26px;
+  left: -50%;
+  padding: 4px 6px;
+  background-color: #2a3547;
+  color: white;
+  display: none;
+  transition: 0.2s;
+}
+.logout__menu:hover .overlay__text {
+  display: block;
+}
+.mini__nav {
+  display: none;
+  border-right: 1px solid rgb(229, 234, 239);
+  padding: 5px;
+  cursor: pointer;
+  background-color: #e8f7ff;
+}
+.button__menu {
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .admin__menu {
+    display: none;
+  }
+  .active__menu .admin__menu {
+    display: flex;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .active__menu .admin__menu {
+    width: 60%;
+  }
+  .account__menu {
+    display: none;
+  }
+}
+@media only screen and (max-width: 200px) {
+  .logo__title {
+    display: none;
+  }
+}

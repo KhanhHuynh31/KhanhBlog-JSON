@@ -1,0 +1,49 @@
+.arrow {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 16px;
+  bottom: 5px;
+  transform: rotate(-45deg);
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.arrow::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-width: 5px 5px 0 0;
+  border-style: solid;
+  border-color: #646eff;
+  transition: 0.2s ease;
+  display: block;
+  transform-origin: 100% 0;
+}
+
+.arrow:after {
+  content: "";
+  float: left;
+  position: relative;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  border-width: 0 5px 0 0;
+  border-style: solid;
+  border-color: orange;
+  transform-origin: 100% 0;
+  transition: 0.2s ease;
+}
+
+.arrow:hover::after {
+  transform: rotate(45deg);
+  border-color: orange;
+  height: 120%;
+}
+
+.arrow:hover::before {
+  border-color: orange;
+  transform: scale(0.8);
+}

@@ -1,0 +1,41 @@
+.list__content {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(229, 234, 239);
+}
+.table__template {
+  width: 100%;
+  margin-top: 15px;
+  border-spacing: 0;
+  border: 1px solid rgb(229, 234, 239);
+  border-radius: 5px;
+  border-bottom: none;
+}
+
+.table__template td {
+  padding: 10px;
+  border-bottom: 1px solid rgb(229, 234, 239);
+}
+
+.table__template th {
+  border-bottom: 1px solid rgb(229, 234, 239);
+  text-align: start;
+  padding: 10px;
+}
+.table__template th:first-child,
+.table__template td:first-child {
+  text-align: center;
+}
+.admin__search {
+  border: 1px solid rgb(229, 234, 239);
+  padding: 8px;
+  border-radius: 5px;
+}
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}

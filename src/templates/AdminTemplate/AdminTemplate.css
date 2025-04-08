@@ -1,0 +1,73 @@
+.admin__main {
+  display: flex;
+}
+.admin__content {
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  height: calc(100vh - 40px);
+  overflow-y: scroll;
+
+}
+.theme__dark {
+  background-color: #222f3e;
+  color: #7c8fac;
+}
+.theme__dark span,
+.theme__dark p,
+.theme__dark h2,
+.theme__dark svg,
+.theme__dark tr,
+.theme__dark a {
+  color: white;
+}
+.theme__dark input,
+.theme__dark textarea,
+.theme__dark select {
+  color: white;
+  background-color: #222f3e;
+  border: 2px solid #161f29;
+}
+.theme__dark .account__menu {
+  background-color: rgb(28, 69, 93);
+}
+.theme__dark .admin__menu {
+  border-right: 2px solid #161f29;
+}
+.theme__dark .list__content,
+.theme__dark .table__template {
+  border: 1px solid #161f29;
+}
+.theme__dark td,
+.theme__dark th {
+  border-bottom: 1px solid #161f29;
+}
+.active__menu .admin__menu {
+  position: fixed;
+  background-color: white;
+  z-index: 4;
+}
+.active__menu .admin__content::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.5); /* Set your desired background color */
+  z-index: 3; /* Place it behind other content */
+}
+.menu__close {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}
+@media only screen and (max-width: 500px) {
+  .admin__content {
+    padding: 10px;
+  }
+}
