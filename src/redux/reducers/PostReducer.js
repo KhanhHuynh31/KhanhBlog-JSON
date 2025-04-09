@@ -26,11 +26,8 @@ export const PostReducer = (state = initialState, action) => {
     case "POST__UPDATE": {
       return {
         ...state,
-        posts: state.posts.map((post) =>
-          post.postId === action.editPostData.postId
-            ? action.editPostData
-            : post
-        ),
+        posts: action.payload,
+
       };
     }
 
