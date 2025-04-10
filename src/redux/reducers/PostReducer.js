@@ -1,55 +1,78 @@
 const initialState = {
   loading: false,
-  success: 0,
+  success: false,
   posts: [],
   error: null,
   postEdit: {},
   postSearch: [],
+  postTypes:[]
 };
 
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_DATA": {
+      const postType = action.payload.map(post => post.postType);
+      console.log("REDUCER POST: ", postType)
       return {
         ...state,
         posts: action.payload,
-        postSearch: action.payload
+        postSearch: action.payload,
+        postTypes: [...new Set(postType)]
       };
     }
+    //POSTING
     case "POSTING_SUCCESS": {
       return {
         ...state,
         posts: action.payload.posts,
-        postSearch: action.payload.posts
-
+        postSearch: action.payload.posts,
+        success: true,
       };
     }
     case "POSTING_FAILURE": {
-      alert("error");
       return {
         ...state,
-        posts: action.payload,
+        error: action.payload,
+        success: false,
       };
     }
-    case "POST__UPDATE": {
+    //UPDATE
+    case "UPDATE_SUCCESS": {
       return {
         ...state,
-        posts: action.payload,
-
+        posts: action.payload.posts,
+        postSearch: action.payload.posts,
+        success: true,
       };
     }
-
+    case "UPDATE_FAILURE": {
+      return {
+        ...state,
+        error: action.payload,
+        success: false,
+      };
+    }
+    //DELETE
     case "DELETE_SUCCESS": {
       return {
         ...state,
         posts: action.payload.posts,
-        postSearch: action.payload.posts
+        postSearch: action.payload.posts,
+        success: true,
       };
     }
+    case "DELETE_FAILURE": {
+      return {
+        ...state,
+        error: action.payload,
+        success: false,
+      };
+    }
+    //ULTILIZATION
     case "RESET__SUCCESS": {
       return {
         ...state,
-        success: 0
+        success: false,
       };
     }
     case "GET_POST_EDIT": {
@@ -65,25 +88,25 @@ export const PostReducer = (state = initialState, action) => {
     case "POST_SEARCH": {
       try {
         // Create a safe search pattern
-        const searchPattern = new RegExp(action.searchText, 'i');
+        const searchPattern = new RegExp(action.searchText, "i");
 
         // Filter posts that match the search pattern
-        const listSearch = state.posts.filter(post =>
-          Object.values(post).some(val =>
-            typeof val === "string" && searchPattern.test(val)
+        const listSearch = state.posts.filter((post) =>
+          Object.values(post).some(
+            (val) => typeof val === "string" && searchPattern.test(val)
           )
         );
 
         // Return completely new state object
         return {
           ...state,
-          postSearch: listSearch.length >= 1 ? listSearch : [...state.posts]
+          postSearch: listSearch.length >= 1 ? listSearch : [...state.posts],
         };
       } catch (error) {
-        console.error("Search error:", error);
         return {
           ...state,
-          postSearch: [...state.posts]
+          postSearch: [...state.posts],
+          error: error.message
         };
       }
     }

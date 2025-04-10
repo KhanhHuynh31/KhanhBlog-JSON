@@ -16,7 +16,6 @@ export default function ListPost() {
   const postSearchData = useSelector(state => state.PostReducer.postSearch);
   let maxPostList = postSearchData.length;
   const [numberItem, setNumberItem] = useState(5);
-  let page = parseInt(maxPostList / numberItem);
   const [currentPage, setcurrentPage] = useState(1);
   const [pre, setPre] = useState(0);
 
@@ -40,15 +39,14 @@ export default function ListPost() {
   };
   const [searchText, setSearchText] = useState()
   useEffect(() => {
-    if (success !== 0)
-      toast.success('Successfully delete!');
-    dispatch(ResetSuccess());
+    if (success === true) {
+      toast.success('Successfully!');
+      dispatch(ResetSuccess());
+    }
   }, [success, dispatch]);
 
   useEffect(() => {
-
     dispatch(SearchPostAction(searchText))
-
   }, [searchText, dispatch]);
 
   const handleSubmitLogin = (event) => {
@@ -89,13 +87,6 @@ export default function ListPost() {
             onChange={getSearchText}
           />
         </form>
-        {/* <CSVLink
-                    data={postSearchData}
-                    filename={"ListPosts.csv"}
-                    className="export__button"
-                >
-                    Export
-                </CSVLink> */}
       </div>
       <div className="table__posts">
         <table className="table__template">
@@ -122,17 +113,15 @@ export default function ListPost() {
         </div>
         <div>
           <span>
-            {pre + 1}-{Math.min(currentPage * numberItem, maxPostList)}
+            {pre + 1}-{Math.min(currentPage * numberItem, maxPostList)} of {maxPostList}
           </span>
         </div>
         <FaAngleLeft
           onClick={() => {
             setPre(0);
             setcurrentPage(currentPage - 1);
-
           }}
           style={{ display: currentPage > 1 ? "block" : "none" }}
-
         />
         <FaAngleRight
           onClick={() => {

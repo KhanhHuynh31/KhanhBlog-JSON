@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import "./ManagePost.css";
-import { AddPostAction, UpdatePostAction } from '../../../redux/actions/PostAction';
+import { AddPostAction, ResetSuccess, UpdatePostAction } from '../../../redux/actions/PostAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -24,13 +24,11 @@ export default function ManagePost() {
   const [editorText, setEditorText] = useState(postEditData.postContent || '');
   const postListData = useSelector(state => state.PostReducer.posts);
   const editorRef = useRef(useState(postEditData.postContent));
-
+  const { success } = useSelector((state) => state.PostReducer);
+  const postTypeData = useSelector(state => state.PostReducer.postTypes);
   const onSubmit = (e) => {
     e.preventDefault();
-
     const date = new Date().toLocaleString();
-
-
     if (id !== undefined) {
       let dataEdit = {
         ...formData,
@@ -38,8 +36,6 @@ export default function ManagePost() {
         postDate: date,
         postId: id
       };
-      toast.success('Successfully UpdatePostAction!');
-
       dispatch(UpdatePostAction(dataEdit));
     } else {
 
@@ -50,7 +46,6 @@ export default function ManagePost() {
         postDate: date,
         postId: maxValueOfY + 1
       };
-      toast.success('Successfully AddPostAction!');
       dispatch(AddPostAction(dataPost));
     }
   };
@@ -66,6 +61,12 @@ export default function ManagePost() {
       [name]: value
     });
   };
+  useEffect(() => {
+    if (success === true) {
+      toast.success('Successfully!');
+      dispatch(ResetSuccess());
+    }
+  }, [success, dispatch]);
 
   return (
     <div className="post__container">
@@ -105,19 +106,20 @@ export default function ManagePost() {
                 {t("post category")}
                 <span className="alert__item"> *</span>
               </p>
-              <select
+
+              <input list="post-type"
                 name="postType"
                 className="post__category"
                 value={formData.postType}
                 onChange={handleChange}
-                required
-              >
-                <option value="">Select Category</option>
+                required />
+              <datalist id="post-type">
+              <option value="">Select Category</option>
                 <option value="1">React JS</option>
                 <option value="2">Utility</option>
-                <option value="3">Other</option>
-              </select>
+              </datalist>
             </div>
+
             <div className="post__item">
               <p>
                 {t("post tag")}

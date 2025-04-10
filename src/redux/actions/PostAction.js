@@ -16,6 +16,8 @@ export const DELETE_FAILURE = 'DELETE_FAILURE'
 
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 export const UPDATE_FAILURE = 'UPDATE_FAILURE'
+export const GET_POST_TYPE = 'GET_POST_TYPE'
+
 
 const BIN_ID = "67f4d3868561e97a50fad9ba";
 const X_MASTER_KEY =
@@ -150,5 +152,3 @@ export const SearchPostAction = (searchText) => {
         searchText,
     }
 }
-
-
