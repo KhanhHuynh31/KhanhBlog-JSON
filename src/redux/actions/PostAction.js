@@ -60,26 +60,21 @@ const updatePostsInBin = async (updatedPosts) => {
             },
         }
     );
-    return response.data;
+    return response.data.record;
 };
 export const AddPostAction = (newPosts) => async (dispatch) => {
     try {
-        dispatch({ type: POST__ADD });
         const existingPosts = await fetchExistingPosts();
         const posts = existingPosts.posts || [];
-        
         const existingPostsId = posts.map((post) => parseInt(post.postId, 10));
         const nextPostsId = existingPostsId.length > 0 ? Math.max(...existingPostsId) + 1 : 1;
-        
         const postsWithId = {
             ...newPosts,
             postId: nextPostsId.toString(),
         };
-        
         posts.push(postsWithId);
         const updatedData = { ...existingPosts, posts };
         const updateResponse = await updatePostsInBin(updatedData);
-
         dispatch({
             type: POSTING_SUCCESS,
             payload: updateResponse,
@@ -93,23 +88,18 @@ export const AddPostAction = (newPosts) => async (dispatch) => {
 };
 export const UpdatePostAction = (editPostData) => async (dispatch) => {
     try {
-        dispatch({ type: POST__UPDATE });
         const existingPosts = await fetchExistingPosts();
         const posts = existingPosts.posts || [];
-        
         const postIndex = posts.findIndex(post => post.postId === editPostData.postId);
         if (postIndex === -1) {
             throw new Error("Post not found.");
         }
-        
         posts[postIndex] = {
             ...posts[postIndex],
             ...editPostData,
         };
-        
         const updatedData = { ...existingPosts, posts };
         const updateResponse = await updatePostsInBin(updatedData);
-
         dispatch({
             type: UPDATE_SUCCESS,
             payload: updateResponse,
@@ -123,14 +113,15 @@ export const UpdatePostAction = (editPostData) => async (dispatch) => {
 };
 export const DeletePostAction = (postId) => async (dispatch) => {
     try {
-        dispatch({ type: POST__DELETE });
         const existingPosts = await fetchExistingPosts();
         const posts = existingPosts.posts || [];
-        
         const newPosts = posts.filter(post => post.postId !== postId);
-        const updatedData = { ...existingPosts, posts: newPosts };
+        const updatedPosts = newPosts.map((post, index) => ({
+            ...post,
+            postId: (index + 1).toString(), // Reassign postId starting from 1
+        }));
+        const updatedData = { ...existingPosts, posts: updatedPosts };
         const updateResponse = await updatePostsInBin(updatedData);
-
         dispatch({
             type: DELETE_SUCCESS,
             payload: updateResponse,

@@ -136,10 +136,10 @@ export default function ListPost() {
         />
         <FaAngleRight
           onClick={() => {
-            setPre(page * numberItem);
+            setPre(currentPage * numberItem);
             setcurrentPage(currentPage + 1);
           }}
-          style={{ display: maxPostList - pre < numberItem ? "none" : "block" }}
+          style={{ display: maxPostList - pre - 1 < numberItem ? "none" : "block" }}
 
         />
       </div>

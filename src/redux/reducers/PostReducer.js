@@ -10,19 +10,27 @@ const initialState = {
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_DATA": {
-      console.log(action.posts);
+      return {
+        ...state,
+        posts: action.payload,
+        postSearch: action.payload
+      };
+    }
+    case "POSTING_SUCCESS": {
+      return {
+        ...state,
+        posts: action.payload.posts,
+        postSearch: action.payload.posts
+
+      };
+    }
+    case "POSTING_FAILURE": {
+      alert("error");
       return {
         ...state,
         posts: action.payload,
       };
     }
-    case "POST__ADD": {
-      return {
-        ...state,
-        posts: [...state.posts, action.postInputData],
-      };
-    }
-
     case "POST__UPDATE": {
       return {
         ...state,
@@ -31,12 +39,11 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
 
-    case "POST__DELETE": {
+    case "DELETE_SUCCESS": {
       return {
         ...state,
-        posts: state.posts.filter(post => post.postId !== action.postId),
-        postSearch: state.postSearch.filter(post => post.postId !== action.postId),
-        success: state.success + 1
+        posts: action.payload.posts,
+        postSearch: action.payload.posts
       };
     }
     case "RESET__SUCCESS": {
