@@ -150,7 +150,10 @@
   cursor: pointer;
   text-align: center;
 }
-
+.header__right{
+  display: flex;
+  align-items: center;
+}
 #progressBar {
   position: fixed;
   z-index: 10;
@@ -177,7 +180,8 @@
 }
 
 .user__box {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: relative;
   cursor: pointer;
 }

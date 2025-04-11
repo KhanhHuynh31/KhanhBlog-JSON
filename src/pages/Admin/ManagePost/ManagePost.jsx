@@ -115,7 +115,7 @@ export default function ManagePost() {
                 required />
               <datalist id="post-type">
                 {postTypeData.map(postType => (
-                  <option value={postType} />
+                  <option key={postType} value={postType} />
                 ))}
               </datalist>
             </div>

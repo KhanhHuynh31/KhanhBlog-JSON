@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import AdminMenu from './Layout/AdminMenu/AdminMenu'
 import AdminHeader from './Layout/AdminHeader/AdminHeader'
 import "./AdminTemplate.css"
-import { LOGIN_SUCCESS } from "../../redux/actions/UserActions"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '../../redux/actions/PostAction'
 

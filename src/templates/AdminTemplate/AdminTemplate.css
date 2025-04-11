@@ -42,10 +42,29 @@
 .theme__dark th {
   border-bottom: 1px solid #161f29;
 }
+.theme__dark .header__link:hover span{
+  color: #5d87ff;
+
+}
+.theme__dark .admin__active{
+  background-color: #5d87ff;
+  transition: 0.2s;
+}
+.theme__dark .admin__active:hover{
+  background-color: white;
+
+}
+.theme__dark .admin__active:hover span{
+  color: #5d87ff;
+}
+
 .active__menu .admin__menu {
   position: fixed;
   background-color: white;
   z-index: 4;
+}
+.theme__dark.active__menu .admin__menu{
+  background-color: #161f29 ;
 }
 .active__menu .admin__content::before {
   content: "";

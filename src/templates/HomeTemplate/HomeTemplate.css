@@ -1,0 +1,72 @@
+.home__dark {
+  background-color: #222f3e;
+  color: #7c8fac;
+  position: absolute;
+  z-index: -2;
+  width: 100%
+}
+.home__dark span,
+.home__dark li,
+.home__dark p,
+.home__dark h3,
+.home__dark h2,
+.home__dark h1,
+.home__dark div,
+.home__dark svg,
+.home__dark a {
+  color: white;
+}
+.home__dark input {
+  color: white;
+  background-color: #161f29;
+  border: 2px solid #161f29;
+}
+.home__dark .slider__item,
+.home__dark .posts__item{
+    background-color: #161f29;
+}
+.home__dark button{
+    background-color: #161f29;
+}
+.home__dark .latest__tags{
+    background-color: #222f3e;
+}
+
+.home__dark .latest__text .latest__tags{
+    background-color: #161f29;
+}
+.home__dark .user__dropdown{
+    background-color: #161f29;
+}
+.home__dark .category__content{
+    background-color: #1b2632; /* Set your desired background color */
+}
+body{
+    position: relative;
+    z-index: -5;
+}
+.home__dark .content__list li:hover{
+background-color: #161f29;
+}
+.home__dark .search__auto{
+    background-color: #222f3e;
+}
+.home__dark .langquage__icon:hover{
+    background-color: #161f29;
+}
+.home__dark .dropdown-content{
+    background-color: #161f29 ;
+}
+.home__dark .menu__link:hover{
+    background-color: #222f3e ;
+}
+.home__dark .modal__content{
+    background-color: #222f3e ;
+}
+  .home__dark .search__auto {
+    scrollbar-color: #161f29 #222f3e; /* Thumb color and track color */
+}
+.home__dark .modal__content{
+    scrollbar-color: #161f29 #222f3e; /* Thumb color and track color */
+
+}

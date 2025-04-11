@@ -6,13 +6,18 @@ import { LOGOUT_SUCCESS, LOGIN_SUCCESS } from '../../../../redux/actions/UserAct
 import { useDispatch, useSelector } from "react-redux";
 import SearchModal from "../../../../components/SearchModal/SearchModal";
 import AutoSearch from "../../../../components/AutoSearch/AutoSearch";
+import { changeThemeAction } from "../../../../redux/actions/WebAction";
+import { LuSun, LuMoon } from "react-icons/lu";
 
 export default function Header() {
   const { t, i18n } = useTranslation();
   const [scroll, setScroll] = useState(0);
   const dispatch = useDispatch();
   const [openSearch, setOpenSearch] = useState(false);
-
+  const { theme } = useSelector((state) => state.WebReducer);
+  const themeChange = () => {
+    dispatch(changeThemeAction(theme));
+  }
 
   const handleChange = (value) => {
     i18n.changeLanguage(value);
@@ -160,6 +165,7 @@ export default function Header() {
             </span>
           )}
         </div>
+
         <div className="language__content">
           <a
             className={i18n.language === "vn" ? "language__active" : null}
@@ -174,6 +180,14 @@ export default function Header() {
           >
             EN
           </a>
+
+        </div>
+        <div onClick={() => themeChange()}>
+          {theme === "light" ? (
+            <LuSun className="langquage__icon light__mode" />
+          ) : (
+            <LuMoon className="langquage__icon dark__mode" />
+          )}
         </div>
       </div>
       <div className="dropdown">
@@ -215,13 +229,13 @@ export default function Header() {
             {t("search")}
           </a>
           <a
-            className={i18n.language === "vn" ? "language__active" : null}
+            className={i18n.language === "vn" ? "language__active" : "menu__link"}
             onClick={() => handleChange("vn")}
           >
             Tiếng Việt
           </a>
           <a
-            className={i18n.language === "en" ? "language__active" : null}
+            className={i18n.language === "en" ? "language__active" : "menu__link"}
             onClick={() => handleChange("en")}
           >
             English
