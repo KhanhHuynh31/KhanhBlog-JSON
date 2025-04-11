@@ -19,15 +19,14 @@ export const UPDATE_FAILURE = 'UPDATE_FAILURE'
 export const GET_POST_TYPE = 'GET_POST_TYPE'
 
 
-const BIN_ID = "67f4d3868561e97a50fad9ba";
-const X_MASTER_KEY =
-    "$2a$10$pSHuOZVPA7JH20w31fABbeHjnUc/tZPJNVadteRITlYzOjwVP6Fli";
+const VITE_POSTS_BIN_ID = import.meta.env.VITE_POSTS_BIN_ID;
+const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
 
 export const fetchData = () => {
     return async (dispatch) => {
         try {
             const response = await axios.get(
-                `https://api.jsonbin.io/v3/b/${BIN_ID}`,
+                `https://api.jsonbin.io/v3/b/${VITE_POSTS_BIN_ID}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -43,7 +42,7 @@ export const fetchData = () => {
     };
 };
 const fetchExistingPosts = async () => {
-    const response = await axios.get(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    const response = await axios.get(`https://api.jsonbin.io/v3/b/${VITE_POSTS_BIN_ID}`, {
         headers: {
             "Content-Type": "application/json",
             "X-Master-Key": X_MASTER_KEY,
@@ -53,7 +52,7 @@ const fetchExistingPosts = async () => {
 };
 const updatePostsInBin = async (updatedPosts) => {
     const response = await axios.put(
-        `https://api.jsonbin.io/v3/b/${BIN_ID}`,
+        `https://api.jsonbin.io/v3/b/${VITE_POSTS_BIN_ID}`,
         updatedPosts,
         {
             headers: {

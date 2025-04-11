@@ -8,15 +8,15 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
-const BIN_ID = "67f087638561e97a50f8ed01";
-const X_MASTER_KEY =
-  "$2a$10$pSHuOZVPA7JH20w31fABbeHjnUc/tZPJNVadteRITlYzOjwVP6Fli";
+
+const VITE_USER_BIN_ID = import.meta.env.VITE_USER_BIN_ID;
+const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
 
 export const loginUser = (name, password) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `https://api.jsonbin.io/v3/b/${BIN_ID}`,
+        `https://api.jsonbin.io/v3/b/${VITE_USER_BIN_ID}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const loginUser = (name, password) => {
 export const registerUser = (newUser) => async (dispatch) => {
   try {
     dispatch({ type: REGISTER_REQUEST });
-    const response = await axios.get(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    const response = await axios.get(`https://api.jsonbin.io/v3/b/${VITE_USER_BIN_ID}`, {
       headers: {
         "Content-Type": "application/json",
         "X-Master-Key": X_MASTER_KEY,
@@ -65,7 +65,7 @@ export const registerUser = (newUser) => async (dispatch) => {
     };
     existingData.user.push(userWithId);
     const updateResponse = await axios.put(
-      `https://api.jsonbin.io/v3/b/${BIN_ID}`,
+      `https://api.jsonbin.io/v3/b/${VITE_USER_BIN_ID}`,
       existingData,
       {
         headers: {
