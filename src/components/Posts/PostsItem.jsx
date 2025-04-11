@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 export default function PostsItem() {
   const { t } = useTranslation();
   const [count, setCount] = useState(6);
-  let { id, searchText } = useParams();
+  let { id, tag, searchText } = useParams();
   const { search } = useLocation();
   const parameters = new URLSearchParams(search);
   const sortType = parameters.get('sortType');
@@ -50,8 +50,29 @@ export default function PostsItem() {
       </div>
     })
   }
+  const filterPosts = (postListData, postTypeId, tag) => {
+    // First filter by postType
+    let filteredPosts = postListData.filter(post => post.postType === postTypeId);
+
+    // If a tag is provided, filter by postTags as well
+    if (tag) {
+        filteredPosts = filteredPosts.filter(post => post.postTags.includes(tag));
+    }
+
+    // If no posts found, filter by postTags if tag is provided
+    if (filteredPosts.length === 0 && tag) {
+        filteredPosts = postListData.filter(post => post.postTags.includes(tag));
+    }
+
+    // If still no posts found, return posts filtered only by postType
+    if (filteredPosts.length === 0) {
+        filteredPosts = postListData.filter(post => post.postType === postTypeId);
+    }
+
+    return filteredPosts;
+};
   const renderPostsByType = () => {
-    return postListData.filter(post => post.postType === id).slice(0, count + 1).sort(sortTypePost()).map((item, index) => {
+    return filterPosts(postListData, id, tag).slice(0, count + 1).sort(sortTypePost()).map((item, index) => {
       return <div className='posts__item' key={index}>
         <Link to={"/detail/" + item.postId}>
           <div className='item__picture'>
@@ -106,7 +127,7 @@ export default function PostsItem() {
     }
   }
   const renderSwitch = () => {
-    if (id !== undefined) {
+    if (id !== undefined || tag !== undefined) {
       return renderPostsByType();
     } else if (searchText !== undefined) {
       return renderPostsBySearch();

@@ -1,10 +1,13 @@
 import React from 'react'
 import PostsItem from '../../../components/Posts/PostsItem'
 import "./Category.css"
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 export default function Category() {
-
+    const postTypeData = useSelector(state => state.PostReducer.postTypes);
+    const postTagData = useSelector(state => state.PostReducer.postTags);
+    const { id, tag } = useParams();
     return (
         <div className='category__main'>
             <div className='category__header'>
@@ -34,10 +37,31 @@ export default function Category() {
                     <div className='category__item'>
                         <h3>Categories</h3>
                         <ul>
-                            <li><NavLink to="/category/1" className={({ isActive }) => "category__link" + (isActive ? " category__active" : "")}>React JS</NavLink></li>
-                            <li><NavLink to="/category/2" className={({ isActive }) => "category__link" + (isActive ? " category__active" : "")}>Utility</NavLink></li>
-                            <li><NavLink to="/category/3" className={({ isActive }) => "category__link" + (isActive ? " category__active" : "")}>Other</NavLink></li>
-                        </ul>
+                            {postTypeData.map(postType => (
+                                <li key={postType}>
+                                    <NavLink
+                                        to={tag ? `/category/type/${postType}/tag/${tag}` : `/category/type/${postType}`}
+                                        className={({ isActive }) => "category__link" + (isActive ? " category__active" : "")}
+                                    >
+                                        {postType}
+                                    </NavLink>
+                                </li>
+                            ))}  </ul>
+                    </div>
+                    <div className='tags__container'>
+                        <h3>Tags</h3>
+                        <div className='tags__box'>
+                            {postTagData.map(postTag => (
+                                <span key={postTag}>
+                                    <NavLink
+                                        to={id ? `/category/type/${id}/tag/${postTag}` : `/category/tag/${postTag}`}
+                                        className={({ isActive }) => "latest__tags" + (isActive ? " category__active" : "")}
+                                    >
+                                        {postTag}
+                                    </NavLink>
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

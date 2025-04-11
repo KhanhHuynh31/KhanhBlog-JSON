@@ -114,9 +114,9 @@ export default function ManagePost() {
                 onChange={handleChange}
                 required />
               <datalist id="post-type">
-              <option value="">Select Category</option>
-                <option value="1">React JS</option>
-                <option value="2">Utility</option>
+                {postTypeData.map(postType => (
+                  <option value={postType} />
+                ))}
               </datalist>
             </div>
 
