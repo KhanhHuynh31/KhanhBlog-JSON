@@ -12,7 +12,7 @@ import { CiViewList } from "react-icons/ci";
 import { FcManager } from "react-icons/fc";
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT_SUCCESS } from '../../../../redux/actions/UserActions';
-
+import { CiStickyNote } from "react-icons/ci";
 export default function AdminMenu() {
   const { t, i18n } = useTranslation();
   const [dropdown, setDropdown] = useState(true);
@@ -123,6 +123,21 @@ export default function AdminMenu() {
               <div className="admin__icon">
                 <CiViewList className="logo__icon" />
                 <span> {t("list post")}</span>
+              </div>
+            </NavLink>
+          </li>
+          <li className="label__menu">
+            <span>Tiện ích</span>
+          </li>
+
+
+          <li>
+            <NavLink to="note" className={({ isActive }) =>
+              `admin__link list__item${isActive ? ' active__admin' : ''}`
+            }    >
+              <div className="admin__icon">
+                <CiStickyNote className="logo__icon" />
+                <span>Ghi chú</span>
               </div>
             </NavLink>
           </li>

@@ -12,6 +12,8 @@ import ListPost from './pages/Admin/ListPost/ListPost';
 import ManagePost from './pages/Admin/ManagePost/ManagePost';
 import AdminTemplate from './templates/AdminTemplate/AdminTemplate';
 import AdminHome from './pages/Admin/AdminHome';
+import Note from './pages/Admin/Note/Note';
+
 function App() {
   return (
     <BrowserRouter>
@@ -37,7 +39,7 @@ function App() {
           <Route path="posts" element={<ManagePost />} />
           <Route path="posts/:id" element={<ManagePost />} />
           <Route path="edit-posts/:id" element={<ManagePost />} />
-
+          <Route path="note" element={<Note />} />
         </Route>
       </Routes>
 

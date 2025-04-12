@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PostsItem from '../../../components/Posts/PostsItem'
 import "./Category.css"
-import { NavLink, Link, useParams } from "react-router-dom";
+import { NavLink, Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 export default function Category() {
     const postTypeData = useSelector(state => state.PostReducer.postTypes);
     const postTagData = useSelector(state => state.PostReducer.postTags);
     const { id, tag } = useParams();
+    const [activeLink, setActiveLink] = useState(null);
+    const navigate = useNavigate();
+
+    const handleClick = (event, type, identifier) => {
+        let currentLink;
+        let parentLink;
+
+        if (type === 'category') {
+            currentLink = tag ? `/category/type/${identifier}/tag/${tag}` : `/category/type/${identifier}`;
+            parentLink = '/category';
+        } else if (type === 'tag') {
+            currentLink = id ? `/category/type/${id}/tag/${identifier}` : `/category/tag/${identifier}`;
+            parentLink = id ? `/category/type/${id}` : '/category'; 
+        }
+
+        if (activeLink === currentLink) {
+            event.preventDefault();
+            navigate(parentLink); 
+            setActiveLink(null); 
+        } else {
+            setActiveLink(currentLink);
+            navigate(currentLink);
+        }
+    };
     return (
         <div className='category__main'>
             <div className='category__header'>
@@ -41,6 +65,7 @@ export default function Category() {
                                 <li key={postType}>
                                     <NavLink
                                         to={tag ? `/category/type/${postType}/tag/${tag}` : `/category/type/${postType}`}
+                                        onClick={(event) => handleClick(event, 'category', postType)}
                                         className={({ isActive }) => "category__link" + (isActive ? " category__active" : "")}
                                     >
                                         {postType}
@@ -55,6 +80,7 @@ export default function Category() {
                                 <span key={postTag}>
                                     <NavLink
                                         to={id ? `/category/type/${id}/tag/${postTag}` : `/category/tag/${postTag}`}
+                                        onClick={(event) => handleClick(event, 'tag', postTag)}
                                         className={({ isActive }) => "latest__tags" + (isActive ? " category__active" : "")}
                                     >
                                         {postTag}

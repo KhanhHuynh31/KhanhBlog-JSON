@@ -40,7 +40,7 @@
 }
 
 .category__active {
-  color: #646eff;
+  color: #646eff !important;
 }
 .order__right a:focus {
   color: #646eff;
