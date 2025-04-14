@@ -5,6 +5,7 @@ import AdminHeader from './Layout/AdminHeader/AdminHeader'
 import "./AdminTemplate.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '../../redux/actions/PostAction'
+import { fetchNoteData } from '../../redux/actions/NoteAction'
 
 export default function AdminTemplate() {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function AdminTemplate() {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(fetchData());
+      dispatch(fetchNoteData());
     }, [dispatch]);
     const [openMenu, setOpenMenu] = useState(false);
     const handleChildData = (data) => {

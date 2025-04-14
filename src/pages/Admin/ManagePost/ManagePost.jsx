@@ -154,13 +154,6 @@ export default function ManagePost() {
               {t("post content")}
               <span className="alert__item"> *</span>
             </p>
-            {/* <textarea
-              value={editorText}
-              onChange={(e) => setEditorText(e.target.value)}
-              placeholder={t("Write your content here...")}
-              rows="10"
-              required
-            /> */}
             <Editor
               key={theme}
               apiKey="qqcfb0qid0ghvvpl2t7ya6zeljdcmk0imjd2xxnnnawodpnn"
