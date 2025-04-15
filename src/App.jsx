@@ -40,6 +40,7 @@ function App() {
           <Route path="posts/:id" element={<ManagePost />} />
           <Route path="edit-posts/:id" element={<ManagePost />} />
           <Route path="note" element={<Note />} />
+          <Route path="note/:id" element={<Note />} />
         </Route>
       </Routes>
 
