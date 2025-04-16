@@ -33,7 +33,7 @@ input:focus {
 }
 
 .post__item p {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     color: #5e5873;
 }
 

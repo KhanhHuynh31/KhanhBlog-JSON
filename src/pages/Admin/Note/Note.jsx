@@ -107,14 +107,14 @@ export default function Note() {
           </div>
         </div>
         <div className='item__body'>
-          <h3 className='note__text'>{note.note_title}</h3>
+          <h3>{note.note_title}</h3>
           <div className='note__text'>{parse(note.note_content)}</div>
         </div>
         <div className='item__footer'>
-          <p className='note__text'>{note.note_author}</p>
+          <p>{note.note_author}</p>
           <div className='item__date'>
             <CiCalendarDate className='note__date' />
-            <span className='note__text'>{note.note_date}</span>
+            <span>{note.note_date}</span>
           </div>
         </div>
 
