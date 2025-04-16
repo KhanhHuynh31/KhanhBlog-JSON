@@ -91,9 +91,7 @@ export default function Note() {
         <div className='item__header'>
           <CiCalendar className='note__icon' />
           <div className='note__change'>
-            <Link to={`/admin/note/${note.note_id}`} className="button__action" onClick={() => dispatch(GetNoteAction(note.note_id))}>
               <TiPinOutline className='note__pin' />
-            </Link>
             <AiOutlineDelete className='note__more' onClick={() => {
               if (window.confirm(`Are you sure you want to delete "${note.note_title}"?`)) {
                 dispatch(DeleteNoteAction(note.note_id));
