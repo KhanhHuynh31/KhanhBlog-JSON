@@ -15,7 +15,9 @@
 }
 .theme__dark *{
   color: white !important;
+  border-color: #7c8fac !important;
 }
+
 .theme__dark input,
 .theme__dark textarea,
 .theme__dark select {
@@ -37,8 +39,14 @@
   border-bottom: 1px solid #161f29;
 }
 .theme__dark .header__link:hover span{
-  color: #5d87ff;
+  color: #5d87ff !important;
 
+}
+.theme__dark .ql-toolbar{
+  background-color: white;
+
+}
+.theme__dark .ql-container.ql-snow{
 }
 .theme__dark .admin__active{
   background-color: #5d87ff;
@@ -76,7 +84,6 @@
 }
 .theme__dark .link__item:hover p, .theme__dark .link__item:hover span{
   scrollbar-color: white #161f29; /* Thumb color and track color */
-  color: white;
 
 }
 .theme__dark .link__item .home__note__title{
@@ -85,7 +92,6 @@
 }
 .theme__dark .link__item:hover .home__note__title{
   background-color: #161f29 ;
-  color: white;
 
 }
 .active__menu .admin__content::before {

@@ -1,25 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Note.css";
 import { GoPencil } from "react-icons/go";
 import { CiCalendar, CiCalendarDate } from "react-icons/ci";
 import { TiPinOutline } from "react-icons/ti";
-import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddNoteAction, DeleteNoteAction, GetNoteAction, ResetNoteAction, UpdateNoteAction } from '../../../redux/actions/NoteAction';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import { AiOutlineDelete } from "react-icons/ai";
 import parse from 'html-react-parser';
 import toast from 'react-hot-toast';
+import QuillEditor from '../../../components/TextEditor/QullEditor';
 
 export default function Note() {
-  const { theme } = useSelector((state) => state.WebReducer);
   const noteListData = useSelector((state) => state.NoteReducer.noteData);
   const noteTypeData = useSelector(state => state.NoteReducer.noteTypes);
   const noteEditData = useSelector(state => state.NoteReducer.noteEdit);
   const { success } = useSelector((state) => state.NoteReducer);
-
   const dispatch = useDispatch();
-  const editorRef = useRef(null);
   const { id, type } = useParams();
   const [openEditor, setOpenEditor] = useState(false);
   const [editorText, setEditorText] = useState('');
@@ -56,10 +53,8 @@ export default function Note() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const log = () => {
-    if (editorRef.current) {
-      setEditorText(editorRef.current.getContent());
-    }
+  const handleContentChange = (content) => {
+    setEditorText(content); // Update the state with new content
   };
 
   const onSubmit = (e) => {
@@ -140,26 +135,7 @@ export default function Note() {
           </datalist>
         </div>
         <div className="note__editor" style={{ display: openEditor ? "block" : "none" }}>
-          <Editor
-            key={theme}
-            apiKey="qqcfb0qid0ghvvpl2t7ya6zeljdcmk0imjd2xxnnnawodpnn"
-            className="my__editor"
-            onInit={(evt, editor) => (editorRef.current = editor)}
-            value={editorText}
-            init={{
-              height: 350,
-              menubar: false,
-              plugins: [
-                "advlist", "autolink", "lists", "link", "image", "charmap", "preview", "anchor",
-                "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media",
-                "table", "help", "wordcount", "codesample"
-              ],
-              toolbar: "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
-              skin: theme === "dark" ? "oxide-dark" : "oxide",
-              content_css: theme === "dark" ? "dark" : "default",
-            }}
-            onEditorChange={log}
-          />
+        <QuillEditor value={editorText} onChange={handleContentChange} />
           <div className="button__note">
             <button className="post__save" type='button' onClick={() => setOpenEditor(false)}>Close</button>
             <button className="post__save" type="submit">Save</button>

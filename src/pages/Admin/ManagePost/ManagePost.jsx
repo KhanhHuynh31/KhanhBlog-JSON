@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
-import { Editor } from '@tinymce/tinymce-react';
+import QuillEditor from '../../../components/TextEditor/QullEditor';
 
 export default function ManagePost() {
-  const { theme } = useSelector((state) => state.WebReducer);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const postEditData = useSelector(state => state.PostReducer.postEdit);
@@ -23,7 +22,6 @@ export default function ManagePost() {
 
   const [editorText, setEditorText] = useState(postEditData.postContent || '');
   const postListData = useSelector(state => state.PostReducer.posts);
-  const editorRef = useRef(useState(postEditData.postContent));
   const { success } = useSelector((state) => state.PostReducer);
   const postTypeData = useSelector(state => state.PostReducer.postTypes);
   const onSubmit = (e) => {
@@ -49,10 +47,8 @@ export default function ManagePost() {
       dispatch(AddPostAction(dataPost));
     }
   };
-  const log = () => {
-    if (editorRef.current) {
-      setEditorText(editorRef.current.getContent());
-    }
+  const handleContentChange = (content) => {
+    setEditorText(content); // Update the state with new content
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -107,14 +103,16 @@ export default function ManagePost() {
                 <span className="alert__item"> *</span>
               </p>
 
-              <input list="post-type"
+              <input
+                list="post-type"
                 name="postType"
                 className="post__category"
                 value={formData.postType}
                 onChange={handleChange}
-                required />
+                required
+              />
               <datalist id="post-type">
-                {postTypeData.map(postType => (
+                {postTypeData.map((postType) => (
                   <option key={postType} value={postType} />
                 ))}
               </datalist>
@@ -154,47 +152,7 @@ export default function ManagePost() {
               {t("post content")}
               <span className="alert__item"> *</span>
             </p>
-            <Editor
-              key={theme}
-              apiKey="qqcfb0qid0ghvvpl2t7ya6zeljdcmk0imjd2xxnnnawodpnn"
-              onInit={(evt, editor) => (editorRef.current = editor)}
-              className="my__editor"
-              value={editorText}
-              init={{
-                height: 300,
-                menubar: true,
-                plugins: [
-                  "advlist",
-                  "autolink",
-                  "lists",
-                  "link",
-                  "image",
-                  "charmap",
-                  "preview",
-                  "anchor",
-                  "searchreplace",
-                  "visualblocks",
-                  "code",
-                  "fullscreen",
-                  "insertdatetime",
-                  "media",
-                  "table",
-                  "code",
-                  "help",
-                  "wordcount",
-                  "codesample",
-                ],
-                toolbar:
-                  "undo redo | blocks | " +
-                  "bold italic forecolor | alignleft aligncenter " +
-                  "alignright alignjustify | bullist numlist outdent indent | " +
-                  "removeformat | help",
-
-                skin: theme === "dark" ? 'oxide-dark' : 'oxide',
-                content_css: theme === "dark" ? 'dark' : 'default',
-              }}
-              onEditorChange={log}
-            />
+            <QuillEditor value={editorText} onChange={handleContentChange} />
             <button className="post__save" type="submit">
               {t("submit")}
             </button>
