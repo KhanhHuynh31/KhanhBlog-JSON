@@ -42,7 +42,7 @@ input:focus {
     resize: none;
 }
 .ql-editor p {
-    height: 120px; /* Example min-height */
+    height: 119px; /* Example min-height */
   }
 .main__input {
     text-align: center;

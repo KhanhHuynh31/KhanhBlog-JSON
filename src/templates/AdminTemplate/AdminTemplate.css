@@ -7,13 +7,12 @@
   padding: 10px 20px 20px 20px;
   height: calc(100vh - 30px);
   overflow-y: auto;
-
 }
 .theme__dark {
   background-color: #222f3e;
   color: #7c8fac;
 }
-.theme__dark *{
+.theme__dark * {
   color: white !important;
   border-color: #7c8fac !important;
 }
@@ -23,6 +22,17 @@
 .theme__dark select {
   background-color: #222f3e;
   border: 2px solid #161f29;
+}
+.theme__dark .ql-toolbar.ql-snow .ql-picker-label {
+  border: none;
+}
+.theme__dark .ql-snow .ql-picker-label {
+  color: black !important;
+
+}
+.theme__dark .ql-picker-item
+{
+  color: black !important;
 }
 .theme__dark .account__menu {
   background-color: rgb(28, 69, 93);
@@ -38,61 +48,53 @@
 .theme__dark th {
   border-bottom: 1px solid #161f29;
 }
-.theme__dark .header__link:hover span{
+.theme__dark .header__link:hover span {
   color: #5d87ff !important;
-
 }
-.theme__dark .ql-toolbar{
+.theme__dark .ql-toolbar {
   background-color: white;
-
 }
-.theme__dark .ql-container.ql-snow{
+.theme__dark .ql-container.ql-snow {
 }
-.theme__dark .admin__active{
+.theme__dark .admin__active {
   background-color: #5d87ff;
   transition: 0.2s;
 }
-.theme__dark .admin__active:hover{
+.theme__dark .admin__active:hover {
   background-color: white;
-
 }
-.theme__dark .admin__active:hover span{
+.theme__dark .admin__active:hover span {
   color: #5d87ff;
 }
-.theme__dark .link__item{
+.theme__dark .link__item {
   background-color: rgb(28, 69, 93);
 }
-.theme__dark .home__note__list p{
+.theme__dark .home__note__list p {
   scrollbar-color: #161f29 rgb(28, 69, 93); /* Thumb color and track color */
-
 }
 .active__menu .admin__menu {
   position: fixed;
   background-color: white;
   z-index: 4;
 }
-.theme__dark.active__menu .admin__menu{
-  background-color: #161f29 ;
-}
-.theme__dark .slider__item{
+.theme__dark.active__menu .admin__menu {
   background-color: #161f29;
-
 }
-.theme__dark .link__item:hover{
-  background-color: #161f29 ;
-
+.theme__dark .slider__item {
+  background-color: #161f29;
 }
-.theme__dark .link__item:hover p, .theme__dark .link__item:hover span{
+.theme__dark .link__item:hover {
+  background-color: #161f29;
+}
+.theme__dark .link__item:hover p,
+.theme__dark .link__item:hover span {
   scrollbar-color: white #161f29; /* Thumb color and track color */
-
 }
-.theme__dark .link__item .home__note__title{
+.theme__dark .link__item .home__note__title {
   background-color: rgb(28, 69, 93);
-
 }
-.theme__dark .link__item:hover .home__note__title{
-  background-color: #161f29 ;
-
+.theme__dark .link__item:hover .home__note__title {
+  background-color: #161f29;
 }
 .active__menu .admin__content::before {
   content: "";
