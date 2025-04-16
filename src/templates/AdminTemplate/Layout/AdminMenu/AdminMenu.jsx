@@ -81,17 +81,6 @@ export default function AdminMenu() {
             className={`list__item option__list ${dropdown ? "" : "open__list"
               }`}
           >
-            <NavLink to="/about" className={"admin__link"}>
-              <div className="admin__icon">
-                <span className="logo__icon">o</span>
-                <span>About us</span>
-              </div>
-            </NavLink>
-          </li>
-          <li
-            className={`list__item option__list ${dropdown ? "" : "open__list"
-              }`}
-          >
             <NavLink to="/category" className={"admin__link"}>
               <div className="admin__icon">
                 <span className="logo__icon">o</span>
