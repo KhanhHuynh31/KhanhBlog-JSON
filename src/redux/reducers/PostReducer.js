@@ -1,3 +1,16 @@
+import {
+  FETCH_DATA,
+  POSTING_SUCCESS,
+  POSTING_FAILURE,
+  UPDATE_SUCCESS,
+  UPDATE_FAILURE,
+  DELETE_SUCCESS,
+  DELETE_FAILURE,
+  RESET_SUCCESS,
+  GET_POST_EDIT,
+  POST_SEARCH,
+} from '../actions/PostAction';
+
 const initialState = {
   loading: false,
   success: false,
@@ -11,7 +24,7 @@ const initialState = {
 
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_DATA": {
+    case FETCH_DATA: {
       const postType = action.payload.map(post => post.postType);
       const postTag = action.payload
                 .flatMap(post => post.postTags.split(',').map(tag => tag.trim())) // Split and trim
@@ -27,7 +40,7 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
     //POSTING
-    case "POSTING_SUCCESS": {
+    case POSTING_SUCCESS: {
       return {
         ...state,
         posts: action.payload.posts,
@@ -35,7 +48,7 @@ export const PostReducer = (state = initialState, action) => {
         success: true,
       };
     }
-    case "POSTING_FAILURE": {
+    case POSTING_FAILURE: {
       return {
         ...state,
         error: action.payload,
@@ -43,7 +56,7 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
     //UPDATE
-    case "UPDATE_SUCCESS": {
+    case UPDATE_SUCCESS: {
       return {
         ...state,
         posts: action.payload.posts,
@@ -51,7 +64,7 @@ export const PostReducer = (state = initialState, action) => {
         success: true,
       };
     }
-    case "UPDATE_FAILURE": {
+    case UPDATE_FAILURE: {
       return {
         ...state,
         error: action.payload,
@@ -59,7 +72,7 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
     //DELETE
-    case "DELETE_SUCCESS": {
+    case DELETE_SUCCESS: {
       return {
         ...state,
         posts: action.payload.posts,
@@ -67,7 +80,7 @@ export const PostReducer = (state = initialState, action) => {
         success: true,
       };
     }
-    case "DELETE_FAILURE": {
+    case DELETE_FAILURE: {
       return {
         ...state,
         error: action.payload,
@@ -75,13 +88,13 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
     //ULTILIZATION
-    case "RESET__SUCCESS": {
+    case RESET_SUCCESS: {
       return {
         ...state,
         success: false,
       };
     }
-    case "GET_POST_EDIT": {
+    case GET_POST_EDIT: {
       let postToEdit = state.posts.find(
         (post) => post.postId === action.postId
       );
@@ -91,7 +104,7 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
 
-    case "POST_SEARCH": {
+    case POST_SEARCH: {
       try {
         // Create a safe search pattern
         const searchPattern = new RegExp(action.searchText, "i");

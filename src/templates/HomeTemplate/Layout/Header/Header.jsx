@@ -107,16 +107,6 @@ export default function Header() {
               {t("posting")}
             </NavLink>
           </li>
-          <li className="menu__item">
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                "menu__link" + (isActive ? " home__active" : "")
-              }
-            >
-              {t("about")}
-            </NavLink>
-          </li>
         </ul>
       </div>
       <div className="header__logo">
@@ -216,14 +206,6 @@ export default function Header() {
             }
           >
             {t("posting")}
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              "menu__link" + (isActive ? " language__active" : "")
-            }
-          >
-            {t("about")}
           </NavLink>
           <a className="menu__link" onClick={() => setOpenSearch(true)}>
             {t("search")}

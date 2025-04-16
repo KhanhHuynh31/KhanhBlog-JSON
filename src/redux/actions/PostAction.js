@@ -1,23 +1,18 @@
 import axios from "axios"
-
-export const POST__ADD = 'POST__ADD'
-export const POST__UPDATE = 'POST__UPDATE'
-export const POST__DELETE = 'POST__DELETE'
+export const POST_ADD = 'POST_ADD'
+export const POST_UPDATE = 'POST_UPDATE'
+export const POST_DELETE = 'POST_DELETE'
 export const GET_POST_EDIT = 'GET_POST_EDIT'
 export const POST_SEARCH = 'POST_SEARCH'
-export const RESET__SUCCESS = 'RESET__SUCCESS'
+export const RESET_SUCCESS = 'RESET_SUCCESS'
 export const FETCH_DATA = 'FETCH_DATA'
 export const POSTING_SUCCESS = 'POSTING_SUCCESS'
 export const POSTING_FAILURE = 'POSTING_FAILURE'
-
 export const DELETE_SUCCESS = 'DELETE_SUCCESS'
 export const DELETE_FAILURE = 'DELETE_FAILURE'
-
-
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 export const UPDATE_FAILURE = 'UPDATE_FAILURE'
 export const GET_POST_TYPE = 'GET_POST_TYPE'
-
 
 const VITE_POSTS_BIN_ID = import.meta.env.VITE_POSTS_BIN_ID;
 const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
@@ -142,7 +137,7 @@ export const GetPostAction = (postId) => {
 }
 export const ResetSuccess = () => {
     return {
-        type: RESET__SUCCESS,
+        type: RESET_SUCCESS,
     }
 }
 export const SearchPostAction = (searchText) => {

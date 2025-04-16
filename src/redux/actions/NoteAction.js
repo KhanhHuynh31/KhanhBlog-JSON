@@ -1,15 +1,13 @@
 import axios from "axios";
 export const FETCH_NOTE = 'FETCH_NOTE'
 export const GET_NOTE_EDIT = 'GET_NOTE_EDIT'
-
 export const ADD_NOTE_SUCCESS = 'ADD_NOTE_SUCCESS'
 export const ADD_NOTE_FAILURE = 'ADD_NOTE_FAILURE'
-
 export const DELETE_NOTE_SUCCESS = 'DELETE_NOTE_SUCCESS'
 export const DELETE_NOTE_FAILURE = 'DELETE_NOTE_FAILURE'
-
 export const UPDATE_NOTE_FAILURE = 'UPDATE_NOTE_FAILURE'
 export const UPDATE_NOTE_SUCCESS = 'UPDATE_NOTE_SUCCESS'
+export const RESET_NOTE_SUCCESS = 'RESET_NOTE_SUCCESS'
 
 const VITE_NOTE_BIN_ID = import.meta.env.VITE_NOTE_BIN_ID;
 const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
@@ -124,5 +122,10 @@ export const GetNoteAction = (id) => {
     return {
         type: GET_NOTE_EDIT,
         payload: id,
+    }
+}
+export const ResetNoteAction = () => {
+    return {
+        type: RESET_NOTE_SUCCESS,
     }
 }

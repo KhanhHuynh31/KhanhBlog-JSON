@@ -35,7 +35,7 @@ export default function AdminHeader({ onSendData }) {
       <div className="admin__left">
         <FaBars className='header__link header_bars' onClick={() => handleDivClick(true)} />
         <NavLink
-          to="home"
+          to="/home"
           className={({ isActive }) =>
             "header__link" + (isActive ? " admin__active" : "")
 

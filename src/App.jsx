@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './app.css'
 import HomeTemplate from './templates/HomeTemplate/HomeTemplate';
 import Home from './pages/Home/Home';
-import About from './pages/Home/About/About';
 import Category from './pages/Home/Category/Category';
 import Detail from './pages/Home/Detail/Detail';
 import Search from './pages/Home/Search/Search';
@@ -11,7 +10,6 @@ import { Toaster } from 'react-hot-toast';
 import ListPost from './pages/Admin/ListPost/ListPost';
 import ManagePost from './pages/Admin/ManagePost/ManagePost';
 import AdminTemplate from './templates/AdminTemplate/AdminTemplate';
-import AdminHome from './pages/Admin/AdminHome';
 import Note from './pages/Admin/Note/Note';
 
 function App() {
@@ -23,7 +21,6 @@ function App() {
         <Route path="/register" element={<Account status={"register"} />} />
         <Route element={<HomeTemplate />}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
           <Route path="/home" element={<Home />} />
           <Route path="/category" element={<Category />} />
           <Route path="/category/type/:id" element={<Category />} />
@@ -33,13 +30,12 @@ function App() {
           <Route path="/search/:searchText" element={<Search />} />
         </Route>
         <Route path="admin" element={<AdminTemplate />}>
-          <Route index element={<AdminHome />} />
-          <Route path="home" element={<AdminHome />} />
           <Route path="list" element={<ListPost />} />
           <Route path="posts" element={<ManagePost />} />
           <Route path="posts/:id" element={<ManagePost />} />
           <Route path="edit-posts/:id" element={<ManagePost />} />
           <Route path="note" element={<Note />} />
+          <Route path="note/type/:type" element={<Note />} />
           <Route path="note/:id" element={<Note />} />
         </Route>
       </Routes>

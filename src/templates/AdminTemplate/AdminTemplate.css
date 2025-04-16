@@ -4,7 +4,7 @@
 .admin__content {
   flex: 1;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   height: calc(100vh - 40px);
   overflow-y: scroll;
 
@@ -13,19 +13,12 @@
   background-color: #222f3e;
   color: #7c8fac;
 }
-.theme__dark span,
-.theme__dark p,
-.theme__dark h2,
-.theme__dark svg,
-.theme__dark tr,
-.theme__dark div,
-.theme__dark a {
-  color: white;
+.theme__dark *{
+  color: white !important;
 }
 .theme__dark input,
 .theme__dark textarea,
 .theme__dark select {
-  color: white;
   background-color: #222f3e;
   border: 2px solid #161f29;
 }

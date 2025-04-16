@@ -37,17 +37,15 @@ export default function AdminMenu() {
 
         <ul className="list__items">
           <li className="label__menu">
-            <span>{t("manage")}</span>
+            <span>{t("home")}</span>
           </li>
           <li>
-            <NavLink
-              to="/admin/home"
-              className={({ isActive }) =>
-                `admin__link list__item${isActive ? ' active__admin' : ''}`
-              }>
+            <NavLink to="note" className={({ isActive }) =>
+              `admin__link list__item${isActive ? ' active__admin' : ''}`
+            }    >
               <div className="admin__icon">
-                <RiHome5Line className="logo__icon" />
-                <span> {t("home")}</span>
+                <CiStickyNote className="logo__icon" />
+                <span>Ghi chú</span>
               </div>
             </NavLink>
           </li>
@@ -125,22 +123,7 @@ export default function AdminMenu() {
                 <span> {t("list post")}</span>
               </div>
             </NavLink>
-          </li>
-          <li className="label__menu">
-            <span>Tiện ích</span>
-          </li>
-
-
-          <li>
-            <NavLink to="note" className={({ isActive }) =>
-              `admin__link list__item${isActive ? ' active__admin' : ''}`
-            }    >
-              <div className="admin__icon">
-                <CiStickyNote className="logo__icon" />
-                <span>Ghi chú</span>
-              </div>
-            </NavLink>
-          </li>
+          </li> 
         </ul>
       </div>
       <div className="account__menu">

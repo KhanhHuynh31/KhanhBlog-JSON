@@ -1,30 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./Note.css";
-import { GoBell, GoPencil } from "react-icons/go";
-import { CiGrid41, CiCalendar, CiCalendarDate } from "react-icons/ci";
+import { GoPencil } from "react-icons/go";
+import { CiCalendar, CiCalendarDate } from "react-icons/ci";
 import { TiPinOutline } from "react-icons/ti";
-import { IoIosMore } from "react-icons/io";
 import { Editor } from '@tinymce/tinymce-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddNoteAction, DeleteNoteAction, GetNoteAction, UpdateNoteAction } from '../../../redux/actions/NoteAction';
-import { Link, useParams } from 'react-router-dom';
+import { AddNoteAction, DeleteNoteAction, GetNoteAction, ResetNoteAction, UpdateNoteAction } from '../../../redux/actions/NoteAction';
+import { Link, NavLink, useParams } from 'react-router-dom';
+import { AiOutlineDelete } from "react-icons/ai";
 import parse from 'html-react-parser';
+import toast from 'react-hot-toast';
 
 export default function Note() {
   const { theme } = useSelector((state) => state.WebReducer);
   const noteListData = useSelector((state) => state.NoteReducer.noteData);
   const noteTypeData = useSelector(state => state.NoteReducer.noteTypes);
   const noteEditData = useSelector(state => state.NoteReducer.noteEdit);
+  const { success } = useSelector((state) => state.NoteReducer);
+
   const dispatch = useDispatch();
   const editorRef = useRef(null);
-  const { id } = useParams();
-  const defaultNoteTypes = ["việc cần làm", "việc đang làm", "việc đã hoàn thành"];
+  const { id, type } = useParams();
   const [openEditor, setOpenEditor] = useState(false);
   const [editorText, setEditorText] = useState('');
   const [formData, setFormData] = useState({
     note_title: '',
     note_type: ''
   });
+  useEffect(() => {
+    if (success !== "") {
+      toast.success(success);
+      dispatch(ResetNoteAction());
+    }
+  }, [success, dispatch]);
 
   useEffect(() => {
     if (id) {
@@ -38,7 +46,6 @@ export default function Note() {
       resetForm();
     }
   }, [id, noteEditData]);
-
   const resetForm = () => {
     setFormData({ note_title: '', note_type: '' });
     setEditorText('');
@@ -71,23 +78,28 @@ export default function Note() {
       dispatch(AddNoteAction(noteData));
     }
   };
-
   const renderNoteTab = () => (
-    noteTypeData.map((note, index) => (
-      <button className="tab__note" key={index}>{note}</button>
-    ))
-  );
+    <>
+      {noteTypeData.map((note, index) => (
+        <NavLink to={`/admin/note/type/${note}`} className={({ isActive }) =>
+          isActive ? "tab__note active__link" : "tab__note"
+        } key={index}>{note}</NavLink>
+      ))}
 
-  const renderNoteList = () => (
-    noteListData.map((note, index) => (
-      <div className='note__item' key={index}>
+    </>
+  );
+  const renderNoteList = () => {
+    const filteredNotes = noteListData.filter(note => note.note_type === type);
+    const notesToRender = type ? filteredNotes : noteListData;
+    return notesToRender.map((note, index) => (
+      <Link to={`/admin/note/${note.note_id}`} className='note__item' key={index} onClick={() => dispatch(GetNoteAction(note.note_id))}>
         <div className='item__header'>
           <CiCalendar className='note__icon' />
           <div className='note__change'>
             <Link to={`/admin/note/${note.note_id}`} className="button__action" onClick={() => dispatch(GetNoteAction(note.note_id))}>
               <TiPinOutline className='note__pin' />
             </Link>
-            <IoIosMore className='note__more' onClick={() => {
+            <AiOutlineDelete className='note__more' onClick={() => {
               if (window.confirm(`Are you sure you want to delete "${note.note_title}"?`)) {
                 dispatch(DeleteNoteAction(note.note_id));
               }
@@ -95,19 +107,20 @@ export default function Note() {
           </div>
         </div>
         <div className='item__body'>
-          <h3>{note.note_title}</h3>
-          <p>{parse(note.note_content)}</p>
+          <h3 className='note__text'>{note.note_title}</h3>
+          <div className='note__text'>{parse(note.note_content)}</div>
         </div>
         <div className='item__footer'>
-          <p>{note.note_author}</p>
+          <p className='note__text'>{note.note_author}</p>
           <div className='item__date'>
             <CiCalendarDate className='note__date' />
-            <span>{note.note_date}</span>
+            <span className='note__text'>{note.note_date}</span>
           </div>
         </div>
-      </div>
-    ))
-  );
+
+      </Link>
+    ));
+  };
 
   return (
     <div className="note__container">
@@ -121,18 +134,10 @@ export default function Note() {
             <input list="note-type" name="note_type" className="open__note" placeholder="Type..." value={formData.note_type} onChange={handleChange} required />
           </div>
           <datalist id="note-type">
-            {defaultNoteTypes.map((defaultType) => (
-              !noteTypeData.some(noteType => noteType.toLowerCase() === defaultType.toLowerCase()) && (
-                <option key={defaultType} value={defaultType} />
-              )
-            ))}
             {noteTypeData.map((noteType) => (
               <option key={noteType} value={noteType} />
             ))}
           </datalist>
-          <div className="note__notify" style={{ display: openEditor ? "none" : "flex" }}>
-            <GoBell />
-          </div>
         </div>
         <div className="note__editor" style={{ display: openEditor ? "block" : "none" }}>
           <Editor
@@ -142,7 +147,7 @@ export default function Note() {
             onInit={(evt, editor) => (editorRef.current = editor)}
             value={editorText}
             init={{
-              height: 400,
+              height: 350,
               menubar: false,
               plugins: [
                 "advlist", "autolink", "lists", "link", "image", "charmap", "preview", "anchor",
@@ -156,20 +161,24 @@ export default function Note() {
             onEditorChange={log}
           />
           <div className="button__note">
-            <button className="post__save" onClick={() => setOpenEditor(false)}>Close</button>
+            <button className="post__save" type='button' onClick={() => setOpenEditor(false)}>Close</button>
             <button className="post__save" type="submit">Save</button>
           </div>
         </div>
       </form>
       <div className="note__body">
+        <h3>Your Note</h3>
         <div className="note__menu">
-          <div className="note__tab">{renderNoteTab()}</div>
-          <div className="title__button">
-            <CiGrid41 className="note__grid" />
+          <div className="note__tab">
+            <NavLink to={`/admin/note`} end className={({ isActive }) =>
+              isActive ? "tab__note active__link" : "tab__note"
+            }>All</NavLink>
+            {renderNoteTab()}
           </div>
         </div>
         <div className="note__content">{renderNoteList()}</div>
       </div>
     </div>
+
   );
 }
