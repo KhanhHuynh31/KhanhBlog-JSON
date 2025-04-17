@@ -12,7 +12,22 @@
   border-radius: 5px;
   border-bottom: none;
 }
-
+.download__content{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.list__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.download__button{
+  transition: 0.2s;
+}
+.download__button:hover{
+  color: #87baf5 !important;
+}
 .table__template td {
   padding: 10px;
   border-bottom: 1px solid rgb(229, 234, 239);

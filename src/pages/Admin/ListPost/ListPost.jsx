@@ -8,6 +8,8 @@ import toast from 'react-hot-toast';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
+import DownloadJson from '../../../components/JsonDownload/JsonDownload';
+import { FiDownload } from "react-icons/fi";
 
 export default function ListPost() {
   const { t } = useTranslation();
@@ -87,6 +89,10 @@ export default function ListPost() {
             onChange={getSearchText}
           />
         </form>
+        <div className='download__content'>
+          <FiDownload />
+          <DownloadJson data={postSearchData} />
+        </div>
       </div>
       <div className="table__posts">
         <table className="table__template">
