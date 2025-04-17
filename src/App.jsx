@@ -34,9 +34,10 @@ function App() {
           <Route path="posts" element={<ManagePost />} />
           <Route path="posts/:id" element={<ManagePost />} />
           <Route path="edit-posts/:id" element={<ManagePost />} />
-          <Route path="note" element={<Note />} />
-          <Route path="note/type/:type" element={<Note />} />
+          <Route path="note" element={<Note />} />          
           <Route path="note/:id" element={<Note />} />
+          <Route path="note/type/:type" element={<Note />} />
+          <Route path="note/pinted/:pinted" element={<Note />} />
         </Route>
       </Routes>
 

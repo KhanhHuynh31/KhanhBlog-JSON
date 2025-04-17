@@ -8,6 +8,7 @@ export const DELETE_NOTE_FAILURE = 'DELETE_NOTE_FAILURE'
 export const UPDATE_NOTE_FAILURE = 'UPDATE_NOTE_FAILURE'
 export const UPDATE_NOTE_SUCCESS = 'UPDATE_NOTE_SUCCESS'
 export const RESET_NOTE_SUCCESS = 'RESET_NOTE_SUCCESS'
+export const PIN_NOTE_CHANGE = 'PIN_NOTE_CHANGE'
 
 const VITE_NOTE_BIN_ID = import.meta.env.VITE_NOTE_BIN_ID;
 const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
@@ -73,7 +74,7 @@ export const AddNoteAction = (newData) => async (dispatch) => {
 };
 export const DeleteNoteAction = (id) => async (dispatch) => {
     try {
-        const existingData= await fetchExistingData();
+        const existingData = await fetchExistingData();
         const data = existingData.note || [];
         const newData = data.filter(note => note.note_id !== id);
         const updatedData = newData.map((note, index) => ({
@@ -95,7 +96,7 @@ export const DeleteNoteAction = (id) => async (dispatch) => {
 };
 export const UpdateNoteAction = (propsData) => async (dispatch) => {
     try {
-        const existingData= await fetchExistingData();
+        const existingData = await fetchExistingData();
         const data = existingData.note || [];
         const newData = data.findIndex(item => item.note_id == propsData.note_id);
         if (newData === -1) {
@@ -128,4 +129,10 @@ export const ResetNoteAction = () => {
     return {
         type: RESET_NOTE_SUCCESS,
     }
+}
+export const PinNoteAction = (id) => {
+    return {
+        type: PIN_NOTE_CHANGE,
+        payload: id,
+    };
 }

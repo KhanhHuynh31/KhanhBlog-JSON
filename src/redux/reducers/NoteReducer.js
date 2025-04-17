@@ -8,8 +8,12 @@ import {
   DELETE_NOTE_SUCCESS,
   DELETE_NOTE_FAILURE,
   RESET_NOTE_SUCCESS,
+  PIN_NOTE_CHANGE,
 } from '../actions/NoteAction';
-
+let pinDataStorage =[];
+if (localStorage.getItem(PIN_NOTE_CHANGE)) {
+  pinDataStorage = JSON.parse(localStorage.getItem(PIN_NOTE_CHANGE));
+}
 const initialState = {
   loading: false,
   success: "",
@@ -17,6 +21,7 @@ const initialState = {
   error: null,
   noteEdit: [],
   noteTypes: [],
+  notePin: pinDataStorage,
 };
 
 export const NoteReducer = (state = initialState, action) => {
@@ -90,6 +95,33 @@ export const NoteReducer = (state = initialState, action) => {
         success: "",
       };
     }
+    case PIN_NOTE_CHANGE: {
+      const id  = action.payload; // Assuming action.payload contains note_id
+      const noteToPin = state.noteData.find(note => note.note_id == id);
+      let updatedPinData = [...state.notePin];
+
+      if (noteToPin) {
+        // Check if the note is already pinned
+        const noteIndex = updatedPinData.findIndex(note => note.note_id === id);
+        
+        if (noteIndex !== -1) {
+          // If the note is already pinned, remove it
+          updatedPinData.splice(noteIndex, 1);
+        } else {
+          // If the note is not pinned, add it to pinData
+          updatedPinData.push(noteToPin);
+        }
+        // Save updated pinData to local storage
+        localStorage.setItem(PIN_NOTE_CHANGE, JSON.stringify(updatedPinData));
+      }
+
+      return {
+        ...state,
+        success: "",
+        notePin: updatedPinData,
+      };
+    }
+
     default:
       return { ...state };
   }

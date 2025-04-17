@@ -4,7 +4,7 @@ import { GoPencil } from "react-icons/go";
 import { CiCalendar, CiCalendarDate } from "react-icons/ci";
 import { TiPinOutline } from "react-icons/ti";
 import { useDispatch, useSelector } from 'react-redux';
-import { AddNoteAction, DeleteNoteAction, GetNoteAction, ResetNoteAction, UpdateNoteAction } from '../../../redux/actions/NoteAction';
+import { AddNoteAction, DeleteNoteAction, GetNoteAction, PinNoteAction, ResetNoteAction, UpdateNoteAction } from '../../../redux/actions/NoteAction';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import { AiOutlineDelete } from "react-icons/ai";
 import parse from 'html-react-parser';
@@ -15,9 +15,11 @@ export default function Note() {
   const noteListData = useSelector((state) => state.NoteReducer.noteData);
   const noteTypeData = useSelector(state => state.NoteReducer.noteTypes);
   const noteEditData = useSelector(state => state.NoteReducer.noteEdit);
+  const notePintData = useSelector(state => state.NoteReducer.notePin);
+
   const { success } = useSelector((state) => state.NoteReducer);
   const dispatch = useDispatch();
-  const { id, type } = useParams();
+  const { id, type, pinted } = useParams();
   const [openEditor, setOpenEditor] = useState(false);
   const [editorText, setEditorText] = useState('');
   const [formData, setFormData] = useState({
@@ -30,9 +32,13 @@ export default function Note() {
       dispatch(ResetNoteAction());
     }
   }, [success, dispatch]);
+  console.log("ID: ", id)
+  console.log("Type: ", type)
+  console.log("Pinted: ", pinted)
 
   useEffect(() => {
     if (id) {
+      console.log(id)
       setOpenEditor(true);
       setFormData({
         note_title: noteEditData.note_title || '',
@@ -80,39 +86,67 @@ export default function Note() {
           isActive ? "tab__note active__link" : "tab__note"
         } key={index}>{note}</NavLink>
       ))}
-
     </>
-  );
-  const renderNoteList = () => {
-    const filteredNotes = noteListData.filter(note => note.note_type === type);
-    const notesToRender = type ? filteredNotes : noteListData;
-    return notesToRender.map((note, index) => (
-      <Link to={`/admin/note/${note.note_id}`} className='note__item' key={index} onClick={() => dispatch(GetNoteAction(note.note_id))}>
-        <div className='item__header'>
-          <CiCalendar className='note__icon' />
-          <div className='note__change'>
-              <TiPinOutline className='note__pin' />
-            <AiOutlineDelete className='note__more' onClick={() => {
-              if (window.confirm(`Are you sure you want to delete "${note.note_title}"?`)) {
-                dispatch(DeleteNoteAction(note.note_id));
-              }
-            }} />
-          </div>
-        </div>
-        <div className='item__body'>
-          <h3>{note.note_title}</h3>
-          <div className='note__text'>{parse(note.note_content)}</div>
-        </div>
-        <div className='item__footer'>
-          <p>{note.note_author}</p>
-          <div className='item__date'>
-            <CiCalendarDate className='note__date' />
-            <span>{note.note_date}</span>
-          </div>
-        </div>
+  ); const renderNoteList = () => {
+    let notesToRender;
+    if (pinted) {
+      notesToRender = notePintData;
+    } else if (type) {
+      notesToRender = noteListData.filter(note => note.note_type === type);
+    } else {
+      notesToRender = noteListData;
+    }
+    return notesToRender.map((note, index) => {
+      // Check if the note is pinned
+      const isPinned = notePintData.some(pinnedNote => pinnedNote.note_id === note.note_id);
 
-      </Link>
-    ));
+      return (
+        <div
+          className="note__item"
+          key={index}
+          onClick={() => dispatch(GetNoteAction(note.note_id))}
+        >
+          <div className="item__header">
+            <CiCalendar className="note__icon" />
+            <div className="note__change">
+              <div onClick={() => dispatch(PinNoteAction(note.note_id))}>
+                <TiPinOutline
+                  className={`note__pin ${isPinned ? 'pinned' : ''}`} // Change class based on pinned state
+                />
+              </div>
+              <AiOutlineDelete
+                className="note__more"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      `Are you sure you want to delete "${note.note_title}"?`
+                    )
+                  ) {
+                    dispatch(DeleteNoteAction(note.note_id));
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <Link
+            to={`/admin/note/${note.note_id}`}
+            onClick={() => dispatch(GetNoteAction(note.note_id))}
+          >
+            <div className="item__body">
+              <h3>{note.note_title}</h3>
+              <div className="note__text">{parse(note.note_content)}</div>
+            </div>
+          </Link>
+          <div className="item__footer">
+            <p>{note.note_author}</p>
+            <div className="item__date">
+              <CiCalendarDate className="note__date" />
+              <span>{note.note_date}</span>
+            </div>
+          </div>
+        </div>
+      );
+    });
   };
 
   return (
@@ -133,7 +167,7 @@ export default function Note() {
           </datalist>
         </div>
         <div className="note__editor" style={{ display: openEditor ? "block" : "none" }}>
-        <QuillEditor value={editorText} onChange={handleContentChange} />
+          <QuillEditor value={editorText} onChange={handleContentChange} />
           <div className="button__note">
             <button className="post__save" type='button' onClick={() => setOpenEditor(false)}>Close</button>
             <button className="post__save" type="submit">Save</button>
@@ -147,6 +181,9 @@ export default function Note() {
             <NavLink to={`/admin/note`} end className={({ isActive }) =>
               isActive ? "tab__note active__link" : "tab__note"
             }>All</NavLink>
+            <NavLink to={`/admin/note/pinted/pinted`} end className={({ isActive }) =>
+              isActive ? "tab__note active__link" : "tab__note"
+            }>Pinted</NavLink>
             {renderNoteTab()}
           </div>
         </div>
