@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
-export const REGISTER_REQUEST = "REGISTER_REQUEST";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const RESET_USER_ALERT = "RESET_USER_ALERT";
+
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
 
@@ -25,15 +25,14 @@ export const loginUser = (name, password) => {
         }
       );
       const users = response.data.record.user;
-
       const user = users.find(
         (user) => user.user_name === name && user.user_password === password
       );
       if (user) {
         dispatch({ type: LOGIN_SUCCESS, payload: user });
       } else {
-        alert("Login failed. Please check your email and password.");
-        dispatch({ type: LOGIN_FAILURE, payload: response.message });
+        const errorMessage = "Login failed. Please check your email and password";
+        dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
       }
     } catch (error) {
       dispatch({ type: LOGIN_FAILURE, payload: error.message });
@@ -42,7 +41,6 @@ export const loginUser = (name, password) => {
 };
 export const registerUser = (newUser) => async (dispatch) => {
   try {
-    dispatch({ type: REGISTER_REQUEST });
     const response = await axios.get(`https://api.jsonbin.io/v3/b/${VITE_USER_BIN_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -86,3 +84,8 @@ export const registerUser = (newUser) => async (dispatch) => {
     });
   }
 };
+export const ResetUserAlert = () => {
+    return {
+        type: RESET_USER_ALERT,
+    }
+}

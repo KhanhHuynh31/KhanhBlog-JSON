@@ -3,28 +3,35 @@ import "./Account.css";
 import signIn from "../../../assets/images/signin.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, registerUser } from '../../../redux/actions/UserActions';
+import { loginUser, registerUser, ResetUserAlert } from '../../../redux/actions/UserActions';
 import toast from 'react-hot-toast';
 
 export default function Account({ status = "register" }) {
     const dispatch = useDispatch();
-    const { success, user, error } = useSelector((state) => state.UserReducer);
+    const { success, error } = useSelector((state) => state.UserReducer);
     const [formData, setFormData] = useState({
         user_name: '',
         user_email: '',
         user_password: '',
-        user_role: '1' // Default role
+        user_role: '2' // Default role
     });
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (success === "Login successful!") {
+            navigate('/home');
+        }
         if (error) {
             toast.error(`Error: ${error}`);
+            dispatch(ResetUserAlert());
         } else if (success) {
-            toast.success('Successfully Login!');
-            navigate('/home')
+            toast.success(success);
+            if (success === "Register successful!") {
+                navigate('/login');
+            }
+            dispatch(ResetUserAlert());
         }
-    }, [error, success]);
+    }, [error, success, navigate, dispatch]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

@@ -14,17 +14,25 @@ export default function AdminTemplate() {
     const { theme } = useSelector((state) => state.WebReducer);
     useEffect(() => {
         const loginStatus = localStorage.getItem('LOGIN_SUCCESS');
+        const userInfo = JSON.parse(loginStatus);
+        console.log(loginStatus)
         if (!loginStatus) {
             alert("Vui lòng đăng nhập để có thể đăng bài !");
             navigate('/home');
         } else {
-            setIsAuthenticated(true); // User is authenticated
+            if (userInfo.user_role === "1") {
+                setIsAuthenticated(true); // User is authenticated
+            }
+            else {
+                alert("Tài khoản không có quyền truy cập");
+                navigate('/home');
+            }
         }
     }, [navigate]);
     const dispatch = useDispatch();
     useEffect(() => {
-      dispatch(fetchData());
-      dispatch(fetchNoteData());
+        dispatch(fetchData());
+        dispatch(fetchNoteData());
     }, [dispatch]);
     const [openMenu, setOpenMenu] = useState(false);
     const handleChildData = (data) => {

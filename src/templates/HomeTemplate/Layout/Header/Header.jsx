@@ -24,8 +24,10 @@ export default function Header() {
   };
   const navigate = useNavigate();
   const userLoginData = useSelector(state => state.UserReducer.user);
+
   const [login, setLogin] = useState();
   const [searchText, setSearchText] = useState("")
+
   useEffect(() => {
     if (!localStorage.getItem(LOGIN_SUCCESS)) {
       setLogin(false);

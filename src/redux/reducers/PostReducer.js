@@ -9,6 +9,7 @@ import {
   RESET_SUCCESS,
   GET_POST_EDIT,
   POST_SEARCH,
+  FETCH_REQUSET,
 } from '../actions/PostAction';
 
 const initialState = {
@@ -18,24 +19,31 @@ const initialState = {
   error: null,
   postEdit: {},
   postSearch: [],
-  postTypes:[],
+  postTypes: [],
   postTags: []
 };
 
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_REQUSET: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case FETCH_DATA: {
       const postType = action.payload.map(post => post.postType);
       const postTag = action.payload
-                .flatMap(post => post.postTags.split(',').map(tag => tag.trim())) // Split and trim
-                .filter((tag, index, self) => self.indexOf(tag) === index); // Remove duplicates
+        .flatMap(post => post.postTags.split(',').map(tag => tag.trim())) // Split and trim
+        .filter((tag, index, self) => self.indexOf(tag) === index); // Remove duplicates
 
       return {
         ...state,
         posts: action.payload,
         postSearch: action.payload,
         postTypes: [...new Set(postType)],
-        postTags: [...new Set(postTag)]
+        postTags: [...new Set(postTag)],
+        loading: false
 
       };
     }

@@ -3,7 +3,6 @@ import "./AdminMenu.css";
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaKorvue } from "react-icons/fa";
-import { RiHome5Line } from "react-icons/ri";
 import { MdBackupTable } from "react-icons/md";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { IoIosPower } from "react-icons/io";
@@ -29,7 +28,7 @@ export default function AdminMenu() {
     <div className="admin__menu">
       <div className="menu__list">
         <div className="menu__logo">
-          <Link to="home" className="logo__link">
+          <Link to="/home" className="logo__link">
             <FaKorvue className="menu__icon" />
             <h2 className="logo__title">Khanh's Blog</h2>
           </Link>

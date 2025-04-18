@@ -6,6 +6,7 @@ export const GET_POST_EDIT = 'GET_POST_EDIT'
 export const POST_SEARCH = 'POST_SEARCH'
 export const RESET_SUCCESS = 'RESET_SUCCESS'
 export const FETCH_DATA = 'FETCH_DATA'
+export const FETCH_REQUSET = 'FETCH_REQUSET'
 export const POSTING_SUCCESS = 'POSTING_SUCCESS'
 export const POSTING_FAILURE = 'POSTING_FAILURE'
 export const DELETE_SUCCESS = 'DELETE_SUCCESS'
@@ -18,7 +19,9 @@ const VITE_POSTS_BIN_ID = import.meta.env.VITE_POSTS_BIN_ID;
 const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
 
 export const fetchData = () => {
+
     return async (dispatch) => {
+        dispatch({ type: FETCH_REQUSET });
         try {
             const response = await axios.get(
                 `https://api.jsonbin.io/v3/b/${VITE_POSTS_BIN_ID}`,

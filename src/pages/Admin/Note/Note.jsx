@@ -32,10 +32,6 @@ export default function Note() {
       dispatch(ResetNoteAction());
     }
   }, [success, dispatch]);
-  console.log("ID: ", id)
-  console.log("Type: ", type)
-  console.log("Pinted: ", pinted)
-
   useEffect(() => {
     if (id) {
       console.log(id)

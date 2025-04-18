@@ -1,11 +1,10 @@
 import {
-  LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
   LOGOUT_SUCCESS,
+  RESET_USER_ALERT,
 } from "../actions/UserActions";
 
 let userStorage = {};
@@ -14,7 +13,7 @@ if (localStorage.getItem(LOGIN_SUCCESS)) {
 }
 const initialState = {
   loading: false,
-  success: false,
+  success: null,
   user: userStorage,
   error: null,
 };
@@ -23,35 +22,33 @@ export const UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGOUT_SUCCESS: {
       localStorage.removeItem(LOGIN_SUCCESS);
-      return { ...state, loading: false, success: false, user: null };
+      return { ...state, success: "Logout successful!", user: null };
     }
-    case LOGIN_REQUEST:
-      return { ...state, loading: true, success: false, error: null };
     case LOGIN_SUCCESS: {
       let userLogin = action.payload;
       localStorage.setItem(LOGIN_SUCCESS, JSON.stringify(userLogin));
-      return { ...state, loading: false, success: true, user: userLogin };
+      return { ...state, success: "Login successful!", user: userLogin };
     }
     case LOGIN_FAILURE:
       return {
         ...state,
-        loading: false,
-        success: false,
         error: action.payload,
       };
-
-    case REGISTER_REQUEST:
-      return { ...state, loading: true, success: false, error: null };
     case REGISTER_SUCCESS:
-      return { ...state, loading: false, success: true, user: action.payload };
+      return { ...state, success: "Register successful!", user: action.payload };
     case REGISTER_FAILURE:
       return {
         ...state,
         loading: false,
-        success: false,
         error: action.payload,
       };
+    case RESET_USER_ALERT:
+      return {
+        ...state,
+        success: null,
+        error: null
+      }
     default:
-      return state;
+      return { ...state };
   }
 };

@@ -26,7 +26,6 @@ export default function Footer() {
                     <h2>FEATURES</h2>
                     <Link to="/" className={"menu__link"}>{t('home')}</Link>
                     <Link to="/category" className={"menu__link"}>{t('category')}</Link>
-                    <Link to="/about" className={"menu__link"}>{t('about')}</Link>
                 </div>
 
                 <div className='footer__contact'>
