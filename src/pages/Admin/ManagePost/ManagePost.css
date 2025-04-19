@@ -1,95 +1,87 @@
 .post__form {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .item__left {
-    width: 48%;
+  width: 48%;
 }
 
 .item__right {
-    width: 48%;
+  width: 48%;
 }
 
 .post__item input,
-textarea, .post__category {
-    font-size: 16px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid #d8d6de;
-    box-sizing: border-box;
-    transition: 0.4s;
-
+textarea,
+.post__category {
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #d8d6de;
+  box-sizing: border-box;
+  transition: 0.4s;
 }
 
 .post__item textarea:focus,
 input:focus {
-    box-shadow: 0 0 10px 1px #7367f0b3;
-    outline: none;
-
+  box-shadow: 0 0 10px 1px #7367f0b3;
+  outline: none;
 }
 
 .post__item p {
-    margin-bottom: 0px;
-    color: #5e5873;
+  margin-bottom: 0px;
+  color: #5e5873;
 }
 
 .desc__input {
-    height: 125px;
-    resize: none;
+  height: 125px;
+  resize: none;
 }
-.ql-editor p {
-    height: 119px; /* Example min-height */
-  }
+.ql-container {
+  height: auto !important;
+}
 .main__input {
-    text-align: center;
-    width: 100%;
-    font-size: 20px;
-
+  text-align: center;
+  width: 100%;
+  font-size: 20px;
 }
 
 .main__input p {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-
-
 .post__save {
-    padding: 10px 15px;
-    margin: 10px;
-    font-size: 16px;
-    border-radius: 6px;
-    transition: 0.4s;
-    background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, .7));
-    color: #fff;
-    border: 1px solid #625f6e;
-    cursor: pointer;
-
+  padding: 10px 15px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: 0.4s;
+  background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
+  color: #fff;
+  border: 1px solid #625f6e;
+  cursor: pointer;
 }
 
 .post__save:hover {
-    background: none;
-    box-shadow: 0 0 10px 1px #7367f0b3;
-    color: #625f6e;
-
+  background: none;
+  box-shadow: 0 0 10px 1px #7367f0b3;
+  color: #625f6e;
 }
 
 .alert__item {
-    color: red;
-    font-size: 14px;
+  color: red;
+  font-size: 14px;
 }
 
 /* RESPONSIVE */
 @media only screen and (max-width: 1160px) {
-    .item__left {
-        width: 100%;
-    }
+  .item__left {
+    width: 100%;
+  }
 
-    .item__right {
-        width: 100%;
-    }
-
+  .item__right {
+    width: 100%;
+  }
 }

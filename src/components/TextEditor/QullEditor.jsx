@@ -57,7 +57,7 @@ export default function QuillEditor({ value = '', onChange }) {
   return (
     <div
       ref={editorRef}
-      style={{ height: "100%"}}
+      style={{ minHeight: "269px"}}
     />
   );
 }

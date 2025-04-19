@@ -87,6 +87,17 @@ export default function AdminMenu() {
               </div>
             </NavLink>
           </li>
+          <li
+            className={`list__item option__list ${dropdown ? "" : "open__list"
+              }`}
+          >
+            <NavLink to="/login" className={"admin__link"}>
+              <div className="admin__icon">
+                <span className="logo__icon">o</span>
+                <span>Login</span>
+              </div>
+            </NavLink>
+          </li>
           <li className="label__menu">
             <span>{t("manage")}</span>
           </li>

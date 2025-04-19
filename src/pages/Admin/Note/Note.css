@@ -39,9 +39,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.note__editor .ql-editor p {
-  min-height: 265px; /* Example min-height */
-}
+
 .note__tab {
   display: flex;
   gap: 20px;
