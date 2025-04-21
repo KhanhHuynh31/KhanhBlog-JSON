@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'; // Choose your preferred Highlight.js theme
 
 export default function QuillEditor({ value = '', onChange }) {
   const editorRef = useRef(null); // DOM node
@@ -20,11 +22,15 @@ export default function QuillEditor({ value = '', onChange }) {
 
     ['clean']                                         // remove formatting button
   ];
+  
   useEffect(() => {
     if (!isMounted.current && editorRef.current) {
       quillRef.current = new Quill(editorRef.current, {
         theme: 'snow',
         modules: {
+          syntax: {
+            hljs: hljs, // Pass the imported hljs instance
+          },
           toolbar: toolbarOptions
         },
       });
