@@ -51,6 +51,12 @@ input:focus {
 .main__input p {
   margin-top: 10px;
 }
+.ql-code-block-container{
+  background-color: #23241F;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+}
 
 .post__save {
   padding: 10px 15px;
