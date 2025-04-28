@@ -15,7 +15,6 @@ export default function AdminTemplate() {
     useEffect(() => {
         const loginStatus = localStorage.getItem('LOGIN_SUCCESS');
         const userInfo = JSON.parse(loginStatus);
-        console.log(loginStatus)
         if (!loginStatus) {
             alert("Vui lòng đăng nhập để có thể đăng bài !");
             navigate('/home');

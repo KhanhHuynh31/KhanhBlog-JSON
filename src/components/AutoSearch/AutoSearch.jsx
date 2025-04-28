@@ -13,7 +13,7 @@ export default function AutoSearch(searchText) {
             Object.values(entry).some(val => typeof val === "string" && val.match(searchValue))
         );
         setFilteredPosts(filtered);
-    }, [searchText, postListData]); // Dependency array includes searchText and postListData
+    }, [searchText, postListData]); 
 
     return (
         <>

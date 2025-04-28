@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./ManagePost.css";
 import { AddPostAction, ResetSuccess, UpdatePostAction } from '../../../redux/actions/PostAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,10 +19,9 @@ export default function ManagePost() {
     postTags: postEditData.postTags || '',
     postImage: postEditData.postImage || '',
   });
-
   const [editorText, setEditorText] = useState(postEditData.postContent || '');
   const postListData = useSelector(state => state.PostReducer.posts);
-  const { success } = useSelector((state) => state.PostReducer);
+  const { success, error } = useSelector((state) => state.PostReducer);
   const postTypeData = useSelector(state => state.PostReducer.postTypes);
   const onSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +35,6 @@ export default function ManagePost() {
       };
       dispatch(UpdatePostAction(dataEdit));
     } else {
-
       let maxValueOfY = Math.max(...postListData.map(o => o.postId), 0);
       let dataPost = {
         ...formData,
@@ -44,6 +42,7 @@ export default function ManagePost() {
         postDate: date,
         postId: maxValueOfY + 1
       };
+
       dispatch(AddPostAction(dataPost));
     }
   };
@@ -62,7 +61,11 @@ export default function ManagePost() {
       toast.success('Successfully!');
       dispatch(ResetSuccess());
     }
-  }, [success, dispatch]);
+    if (error !== null) {
+      toast.error(error.message);
+      dispatch(ResetSuccess());
+    }
+  }, [success, error, dispatch]);
 
   return (
     <div className="post__container">
@@ -156,6 +159,7 @@ export default function ManagePost() {
             <button className="post__save" type="submit">
               {t("submit")}
             </button>
+            
           </div>
         </form>
       </div>

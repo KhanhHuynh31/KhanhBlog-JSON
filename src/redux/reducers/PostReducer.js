@@ -15,8 +15,9 @@ import {
 const initialState = {
   loading: false,
   success: false,
-  posts: [],
   error: null,
+  postSize: 0,
+  posts: [],
   postEdit: {},
   postSearch: [],
   postTypes: [],
@@ -36,15 +37,14 @@ export const PostReducer = (state = initialState, action) => {
       const postTag = action.payload
         .flatMap(post => post.postTags.split(',').map(tag => tag.trim())) // Split and trim
         .filter((tag, index, self) => self.indexOf(tag) === index); // Remove duplicates
-
       return {
         ...state,
         posts: action.payload,
         postSearch: action.payload,
         postTypes: [...new Set(postType)],
         postTags: [...new Set(postTag)],
-        loading: false
-
+        loading: false,
+        postSize: new TextEncoder().encode(JSON.stringify(action.payload)).length / 1024
       };
     }
     //POSTING
@@ -99,6 +99,7 @@ export const PostReducer = (state = initialState, action) => {
     case RESET_SUCCESS: {
       return {
         ...state,
+        error: null,
         success: false,
       };
     }
@@ -137,7 +138,6 @@ export const PostReducer = (state = initialState, action) => {
         };
       }
     }
-
     default:
       return { ...state };
   }

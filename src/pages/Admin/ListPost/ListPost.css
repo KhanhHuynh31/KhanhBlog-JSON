@@ -17,6 +17,10 @@
   align-items: center;
   gap: 5px;
 }
+.download__content span{
+
+  padding-right: 10px;
+}
 .list__header{
   display: flex;
   justify-content: space-between;

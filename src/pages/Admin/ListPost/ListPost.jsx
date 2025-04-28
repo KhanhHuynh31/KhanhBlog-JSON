@@ -14,7 +14,7 @@ import { FiDownload } from "react-icons/fi";
 export default function ListPost() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { success } = useSelector((state) => state.PostReducer);
+  const { success, postSize } = useSelector((state) => state.PostReducer);
   const postSearchData = useSelector(state => state.PostReducer.postSearch);
   let maxPostList = postSearchData.length;
   const [numberItem, setNumberItem] = useState(5);
@@ -89,7 +89,9 @@ export default function ListPost() {
             onChange={getSearchText}
           />
         </form>
+
         <div className='download__content'>
+          <span>{postSize.toFixed(2)} KB / 100 KB</span>
           <FiDownload />
           <DownloadJson data={postSearchData} />
         </div>
@@ -135,7 +137,6 @@ export default function ListPost() {
             setcurrentPage(currentPage + 1);
           }}
           style={{ display: maxPostList - pre - 1 < numberItem ? "none" : "block" }}
-
         />
       </div>
     </div>

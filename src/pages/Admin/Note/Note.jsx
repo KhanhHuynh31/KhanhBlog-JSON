@@ -34,7 +34,6 @@ export default function Note() {
   }, [success, dispatch]);
   useEffect(() => {
     if (id) {
-      console.log(id)
       setOpenEditor(true);
       setFormData({
         note_title: noteEditData.note_title || '',
