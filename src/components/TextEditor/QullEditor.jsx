@@ -2,43 +2,37 @@ import React, { useEffect, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css'; // Choose your preferred Highlight.js theme
+import 'highlight.js/styles/atom-one-dark.css';
 
 export default function QuillEditor({ value = '', onChange }) {
-  const editorRef = useRef(null); // DOM node
-  const quillRef = useRef(null);  // Quill instance
+  const editorRef = useRef(null); 
+  const quillRef = useRef(null); 
   const isMounted = useRef(false);
   const toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['bold', 'italic', 'underline', 'strike'],      
     ['blockquote', 'code-block'],
     ['image'],
     [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript      // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
+    [{ 'script': 'sub' }, { 'script': 'super' }], 
+    [{ 'direction': 'rtl' }],                    
     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'color': [] }, { 'background': [] }], 
     [{ 'font': [] }],
     [{ 'align': [] }],
-
-    ['clean']                                         // remove formatting button
+    ['clean']                                
   ];
-  
   useEffect(() => {
     if (!isMounted.current && editorRef.current) {
       quillRef.current = new Quill(editorRef.current, {
         theme: 'snow',
         modules: {
           syntax: {
-            hljs: hljs, // Pass the imported hljs instance
+            hljs: hljs,
           },
           toolbar: toolbarOptions
         },
       });
-
-      // Set initial content
       quillRef.current.root.innerHTML = value;
-
-      // Listen for changes and call onChange
       quillRef.current.on('text-change', () => {
         const html = quillRef.current.root.innerHTML;
         if (onChange) {
@@ -49,8 +43,6 @@ export default function QuillEditor({ value = '', onChange }) {
       isMounted.current = true;
     }
   }, []);
-
-  // Update content if value prop changes from parent
   useEffect(() => {
     if (
       quillRef.current &&
@@ -59,7 +51,6 @@ export default function QuillEditor({ value = '', onChange }) {
       quillRef.current.root.innerHTML = value;
     }
   }, [value]);
-
   return (
     <div
       ref={editorRef}

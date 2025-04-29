@@ -11,7 +11,7 @@ export default function Detail() {
   const renderContent = () => {
 
     return postListData.filter(item => item.postId === id).map((item, index) => {
-      return <div className='posts__text' key={item.postId}>{parse(item.postContent)}</div>
+      return <div className='ql-editor' key={item.postId}>{parse(item.postContent)}</div>
     })
   }
   const { pathname } = useLocation();

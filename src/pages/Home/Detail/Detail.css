@@ -1,17 +1,20 @@
-.posts__text{
-    font-size: 20px;
-    margin-top: 0;
+.posts__text {
+  font-size: 20px;
+  margin-top: 0;
 }
-.posts__relative{
-    margin: 80px 0;
+.posts__relative {
+  margin: 80px 0;
 }
-.posts__detail .ql-ui
-{
+.posts__detail {
+  font-family: "Noto Sans", sans-serif;
+}
+.posts__detail select {
     display: none;
 }
+
 @media only screen and (max-width: 1050px) {
-    .posts__detail img{
-        width: 100%;
-        height: 100%;
-     }
+  .posts__detail img {
+    width: 100%;
+    height: 100%;
+  }
 }
