@@ -29,16 +29,6 @@ export default function ListPost() {
       setcurrentPage(currentPage - 1);
     }
   };
-  const getType = (value) => {
-    switch (parseInt(value, 10)) {
-      case 1:
-        return "React JS"
-      case 2:
-        return "Utility"
-      default:
-        return "Other"
-    }
-  };
   const [searchText, setSearchText] = useState()
   useEffect(() => {
     if (success === true) {
@@ -65,7 +55,7 @@ export default function ListPost() {
       return <tr key={index}>
         <td>{post.postId}</td>
         <td>{post.postTitle}</td>
-        <td>{getType(post.postType)}</td>
+        <td>{post.postType}</td>
         <td>{post.postDate}</td>
         <td>
           <Link to={`/admin/edit-posts/${post.postId}`} className="button__action" onClick={() => { dispatch(GetPostAction(post.postId)) }}> <FiEdit /></Link>

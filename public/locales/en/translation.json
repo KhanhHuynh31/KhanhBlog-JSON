@@ -31,5 +31,7 @@
     "title": "  Title",
     "description": "Description",
     "date": "Date Posted",
-    "action": "Action"
+    "action": "Action",
+    "note": "Note",
+    "frontend": "Frontend Page"
 }

@@ -44,7 +44,7 @@ export default function AdminMenu() {
             }    >
               <div className="admin__icon">
                 <CiStickyNote className="logo__icon" />
-                <span>Ghi chú</span>
+                <span>{t("note")}</span>
               </div>
             </NavLink>
           </li>
@@ -55,7 +55,7 @@ export default function AdminMenu() {
             >
               <div className="admin__icon">
                 <MdBackupTable className="logo__icon" />
-                <span> Frontend pages</span>
+                <span>{t("frontend")}</span>
               </div>
               {dropdown ? (
                 <IoIosArrowUp className="logo__icon" />
@@ -72,7 +72,7 @@ export default function AdminMenu() {
             <NavLink to="/home" className={"admin__link"}>
               <div className="admin__icon">
                 <span className="logo__icon">o</span>
-                <span>Homepage</span>
+                <span>{t("home")}</span>
               </div>
             </NavLink>
           </li>
@@ -83,7 +83,7 @@ export default function AdminMenu() {
             <NavLink to="/category" className={"admin__link"}>
               <div className="admin__icon">
                 <span className="logo__icon">o</span>
-                <span>Category</span>
+                <span>{t("category")}</span>
               </div>
             </NavLink>
           </li>
@@ -94,7 +94,7 @@ export default function AdminMenu() {
             <NavLink to="/login" className={"admin__link"}>
               <div className="admin__icon">
                 <span className="logo__icon">o</span>
-                <span>Login</span>
+                <span>{t("login")}</span>
               </div>
             </NavLink>
           </li>

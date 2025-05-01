@@ -31,5 +31,7 @@
     "title": "Tiêu đề",
     "description": "Mô tả",
     "date": "Ngày đăng",
-    "action": "Thao tác"
+    "action": "Thao tác",
+    "note": "Ghi chú",
+    "frontend": "Giao diện"
 }
