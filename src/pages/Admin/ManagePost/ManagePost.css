@@ -80,7 +80,16 @@ input:focus {
   color: red;
   font-size: 14px;
 }
-
+.bottom__button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bin__select{
+  height: 40px;
+  width: 60px;
+  border-radius: 5px;
+}
 /* RESPONSIVE */
 @media only screen and (max-width: 1160px) {
   .item__left {

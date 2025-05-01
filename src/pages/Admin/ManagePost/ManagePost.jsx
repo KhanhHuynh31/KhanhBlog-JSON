@@ -19,9 +19,22 @@ export default function ManagePost() {
     postTags: postEditData.postTags || '',
     postImage: postEditData.postImage || '',
   });
+  const binSizes = useSelector(state => state.PostReducer.binSizes);
+  const autoGetBinIndex = (binSizes) => {
+    if (!Array.isArray(binSizes) || binSizes.length === 0) return 0;
+  
+    for (let i = 0; i < binSizes.length; i++) {
+      if (binSizes[i].startPostId === null) {
+        return i - 1 >= 0 ? i - 1 : 0;
+      }
+    }
+  
+    return binSizes.length - 1; // Trả về bin cuối cùng nếu không có bin nào có startPostId = null
+  };
   const [editorText, setEditorText] = useState(postEditData.postContent || '');
   const postListData = useSelector(state => state.PostReducer.posts);
   const { success, error } = useSelector((state) => state.PostReducer);
+  const [selectedBin, setSelectedBin] = useState(autoGetBinIndex(binSizes)); // Default to Bin 0
   const postTypeData = useSelector(state => state.PostReducer.postTypes);
   const onSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +46,7 @@ export default function ManagePost() {
         postDate: date,
         postId: id
       };
-      dispatch(UpdatePostAction(dataEdit));
+      dispatch(UpdatePostAction(selectedBin, dataEdit));
     } else {
       let maxValueOfY = Math.max(...postListData.map(o => o.postId), 0);
       let dataPost = {
@@ -43,7 +56,7 @@ export default function ManagePost() {
         postId: maxValueOfY + 1
       };
 
-      dispatch(AddPostAction(dataPost));
+      dispatch(AddPostAction(selectedBin, dataPost));
     }
   };
   const handleContentChange = (content) => {
@@ -156,10 +169,16 @@ export default function ManagePost() {
               <span className="alert__item"> *</span>
             </p>
             <QuillEditor value={editorText} onChange={handleContentChange} />
-            <button className="post__save" type="submit">
-              {t("submit")}
-            </button>
-            
+            <div className='bottom__button'>
+              <select className="bin__select" value={selectedBin} onChange={(e) => setSelectedBin(e.target.value)}>
+                <option value="0">Bin 0</option>
+                <option value="1">Bin 1</option>
+              </select>
+              <button className="post__save" type="submit">
+                {t("submit")}
+              </button>
+            </div>
+
           </div>
         </form>
       </div>

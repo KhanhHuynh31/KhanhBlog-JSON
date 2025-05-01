@@ -16,7 +16,7 @@ const initialState = {
   loading: false,
   success: false,
   error: null,
-  postSize: 0,
+  binSizes: [],
   posts: [],
   postEdit: {},
   postSearch: [],
@@ -33,26 +33,24 @@ export const PostReducer = (state = initialState, action) => {
       };
     }
     case FETCH_DATA: {
-      const postType = action.payload.map(post => post.postType);
-      const postTag = action.payload
+      const postType = action.payload.posts.map(post => post.postType);
+      const postTag = action.payload.posts
         .flatMap(post => post.postTags.split(',').map(tag => tag.trim())) // Split and trim
         .filter((tag, index, self) => self.indexOf(tag) === index); // Remove duplicates
       return {
         ...state,
-        posts: action.payload,
-        postSearch: action.payload,
+        posts: action.payload.posts,
+        postSearch: action.payload.posts,
         postTypes: [...new Set(postType)],
         postTags: [...new Set(postTag)],
         loading: false,
-        postSize: new TextEncoder().encode(JSON.stringify(action.payload)).length / 1024
+        binSizes: action.payload.binSizes
       };
     }
     //POSTING
     case POSTING_SUCCESS: {
       return {
         ...state,
-        posts: action.payload.posts,
-        postSearch: action.payload.posts,
         success: true,
       };
     }
@@ -67,8 +65,6 @@ export const PostReducer = (state = initialState, action) => {
     case UPDATE_SUCCESS: {
       return {
         ...state,
-        posts: action.payload.posts,
-        postSearch: action.payload.posts,
         success: true,
       };
     }
@@ -83,8 +79,6 @@ export const PostReducer = (state = initialState, action) => {
     case DELETE_SUCCESS: {
       return {
         ...state,
-        posts: action.payload.posts,
-        postSearch: action.payload.posts,
         success: true,
       };
     }

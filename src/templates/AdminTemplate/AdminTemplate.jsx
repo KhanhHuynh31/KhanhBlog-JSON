@@ -6,11 +6,12 @@ import "./AdminTemplate.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '../../redux/actions/PostAction'
 import { fetchNoteData } from '../../redux/actions/NoteAction'
+import LoadingPage from '../../components/LoadingPage/LoadingPage'
 
 export default function AdminTemplate() {
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+    const loading = useSelector(state => state.PostReducer.loading);
     const { theme } = useSelector((state) => state.WebReducer);
     useEffect(() => {
         const loginStatus = localStorage.getItem('LOGIN_SUCCESS');
@@ -54,7 +55,7 @@ export default function AdminTemplate() {
                         style={{ display: openMenu === true ? "block" : "none" }}
                     ></div>
                     <AdminHeader onSendData={handleChildData} />
-                    <Outlet />
+                    {loading ? <LoadingPage /> : <Outlet />}
                 </div>
             </div>
         </Fragment>

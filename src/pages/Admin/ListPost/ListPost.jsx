@@ -14,13 +14,34 @@ import { FiDownload } from "react-icons/fi";
 export default function ListPost() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { success, postSize } = useSelector((state) => state.PostReducer);
+  const { success } = useSelector((state) => state.PostReducer);
+  const binSizes = useSelector(state => state.PostReducer.binSizes);
+
   const postSearchData = useSelector(state => state.PostReducer.postSearch);
   let maxPostList = postSearchData.length;
-  const [numberItem, setNumberItem] = useState(5);
+  const [numberItem, setNumberItem] = useState(10);
   const [currentPage, setcurrentPage] = useState(1);
   const [pre, setPre] = useState(0);
-
+  const handleAlert = () => {
+    const readableText = binSizes
+      .map((bin, index) => `Bin ${index} (${bin.startPostId} - ${bin.endPostId}) — ${bin.sizeKB.toFixed(2)} KB  `)
+      .join("\n");
+    alert(readableText);
+  };
+  const getBinIndexByPostId = (postId) => {
+    for (let i = 0; i < binSizes.length; i++) {
+      const { startPostId, endPostId } = binSizes[i];
+      if (
+        typeof startPostId === "number" &&
+        typeof endPostId === "number" &&
+        postId >= startPostId &&
+        postId <= endPostId
+      ) {
+        return i;
+      }
+    }
+    return null;
+  };
   const handleChange = (event) => {
     const value = event.target.value;
     setNumberItem(value);
@@ -61,7 +82,7 @@ export default function ListPost() {
           <Link to={`/admin/edit-posts/${post.postId}`} className="button__action" onClick={() => { dispatch(GetPostAction(post.postId)) }}> <FiEdit /></Link>
           <a className="button__action" onClick={() => {
             if (window.confirm('Are you sure delete ' + post.postTitle)) {
-              dispatch(DeletePostAction(post.postId));
+              dispatch(DeletePostAction(getBinIndexByPostId(post.postId), post.postId));
             }
           }}> <AiOutlineDelete /></a>
         </td>
@@ -81,7 +102,11 @@ export default function ListPost() {
         </form>
 
         <div className='download__content'>
-          <span>{postSize.toFixed(2)} KB / 100 KB</span>
+          <button
+            onClick={handleAlert}
+          >
+            Bin Capacity
+          </button>
           <FiDownload />
           <DownloadJson data={postSearchData} />
         </div>
@@ -103,7 +128,7 @@ export default function ListPost() {
       <div className="pagination">
         <div>
           <span>Row per page: </span>
-          <select onChange={handleChange}>
+          <select value={numberItem} onChange={handleChange}>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>

@@ -11,19 +11,9 @@ export default function HomeTemplate() {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.PostReducer.loading);
   const { theme } = useSelector((state) => state.WebReducer);
-  const [openLoading, setOpenLoading] = useState(false);
-  useEffect(() => {
-    if (loading) {
-      setOpenLoading(true)
-    }
-    else {
-      setOpenLoading(false)
-    }
-  }, [loading]);
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
-
   return (
     <Fragment>
       <div
