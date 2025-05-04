@@ -63,9 +63,11 @@ export const PostReducer = (state = initialState, action) => {
     }
     //UPDATE
     case UPDATE_SUCCESS: {
+      console.log('UPDATE_SUCCESS', action.payload);
       return {
         ...state,
         success: true,
+        postEdit: action.payload,
       };
     }
     case UPDATE_FAILURE: {

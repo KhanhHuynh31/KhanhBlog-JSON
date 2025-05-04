@@ -1,19 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Outlet } from 'react-router-dom'
 import Footer from './Layout/Footer/Footer'
 import Header from './Layout/Header/Header'
 import BackToTopButton from '../../components/BackToTopButton/BackToTopButton'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchData } from '../../redux/actions/PostAction'
+import { useSelector } from 'react-redux'
 import "./HomeTemplate.css"
 import LoadingPage from '../../components/LoadingPage/LoadingPage'
 export default function HomeTemplate() {
-  const dispatch = useDispatch();
   const loading = useSelector(state => state.PostReducer.loading);
   const { theme } = useSelector((state) => state.WebReducer);
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
   return (
     <Fragment>
       <div

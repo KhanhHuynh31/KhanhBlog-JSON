@@ -174,10 +174,10 @@ export const UpdatePostAction = (binIndex, editPostData) => async (dispatch) => 
             ...editPostData,
         };
         const updatedData = { ...existingPosts, posts };
-        const updateResponse = await updatePostsInBin(binId, updatedData);
+        await updatePostsInBin(binId, updatedData);
         dispatch({
             type: UPDATE_SUCCESS,
-            payload: updateResponse,
+            payload: editPostData,
         });
         dispatch(fetchData());
     } catch (error) {
