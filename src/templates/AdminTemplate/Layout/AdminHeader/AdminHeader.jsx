@@ -1,18 +1,19 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom'
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 import "./AdminHeader.css";
-import vnIcon from '../../../../assets/images/vietnam.png'
-import enIcon from '../../../../assets/images/united-kingdom.png'
+import vnIcon from "../../../../assets/images/vietnam.png";
+import enIcon from "../../../../assets/images/united-kingdom.png";
 import { LuSun, LuMoon } from "react-icons/lu";
-import { useDispatch, useSelector } from 'react-redux';
-import { changeThemeAction } from '../../../../redux/actions/WebAction';
-import { FcManager } from 'react-icons/fc';
+import { useDispatch, useSelector } from "react-redux";
+import { changeThemeAction } from "../../../../redux/actions/WebAction";
+import { FcManager } from "react-icons/fc";
 import { FaBars } from "react-icons/fa6";
 
 export default function AdminHeader({ onSendData }) {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
+  const userLoginData = useSelector((state) => state.UserReducer.user);
   const { theme } = useSelector((state) => state.WebReducer);
 
   const handleDivClick = (value) => {
@@ -20,46 +21,57 @@ export default function AdminHeader({ onSendData }) {
   };
   const themeChange = () => {
     dispatch(changeThemeAction(theme));
-  }
+  };
   const langquageChange = () => {
     if (i18n.language === "en") {
       i18n.changeLanguage("vn");
-
-    }
-    else {
+    } else {
       i18n.changeLanguage("en");
     }
-  }
+  };
   return (
     <div className="admin__header">
       <div className="admin__left">
-        <FaBars className='header__link header_bars' onClick={() => handleDivClick(true)} />
+        <FaBars
+          className="header__link header_bars"
+          onClick={() => handleDivClick(true)}
+        />
         <NavLink
           to="/home"
           className={({ isActive }) =>
             "header__link" + (isActive ? " admin__active" : "")
-
           }
         >
           <span className="link__text"> {t("home")}</span>{" "}
         </NavLink>
         <NavLink
-          to="posts"
-          className={({ isActive }) =>
-            "header__link" + (isActive ? " admin__active" : "")
-
-          }
-        >
-          <span className="link__text"> {t("posting")}</span>{" "}
-        </NavLink>
-        <NavLink
-          to="list"
+          to="/note"
           className={({ isActive }) =>
             "header__link" + (isActive ? " admin__active" : "")
           }
         >
-          <span className="link__text"> {t("list post")}</span>{" "}
+          <span className="link__text"> {t("note")}</span>{" "}
         </NavLink>
+        {userLoginData?.user_role === "1" && (
+          <>
+            <NavLink
+              to="posts"
+              className={({ isActive }) =>
+                "header__link" + (isActive ? " admin__active" : "")
+              }
+            >
+              <span className="link__text"> {t("posting")}</span>{" "}
+            </NavLink>
+            <NavLink
+              to="list"
+              className={({ isActive }) =>
+                "header__link" + (isActive ? " admin__active" : "")
+              }
+            >
+              <span className="link__text"> {t("list post")}</span>{" "}
+            </NavLink>
+          </>
+        )}
       </div>
       <div className="admin__right">
         <div onClick={() => themeChange()}>
@@ -76,7 +88,6 @@ export default function AdminHeader({ onSendData }) {
           alt="langquage icon"
         />
         <FcManager className="langquage__icon" />
-
       </div>
     </div>
   );

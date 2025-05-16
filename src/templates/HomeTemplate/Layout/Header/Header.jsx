@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
-import { LOGOUT_SUCCESS, LOGIN_SUCCESS } from '../../../../redux/actions/UserActions'
+import {
+  LOGOUT_SUCCESS,
+  LOGIN_SUCCESS,
+} from "../../../../redux/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import SearchModal from "../../../../components/SearchModal/SearchModal";
 import AutoSearch from "../../../../components/AutoSearch/AutoSearch";
@@ -17,16 +20,16 @@ export default function Header() {
   const { theme } = useSelector((state) => state.WebReducer);
   const themeChange = () => {
     dispatch(changeThemeAction(theme));
-  }
+  };
 
   const handleChange = (value) => {
     i18n.changeLanguage(value);
   };
   const navigate = useNavigate();
-  const userLoginData = useSelector(state => state.UserReducer.user);
+  const userLoginData = useSelector((state) => state.UserReducer.user);
 
   const [login, setLogin] = useState();
-  const [searchText, setSearchText] = useState("")
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem(LOGIN_SUCCESS)) {
@@ -46,16 +49,15 @@ export default function Header() {
   const handleSubmitLogin = (event) => {
     event.preventDefault();
     if (searchText === undefined || searchText === "") {
-      alert("You must enter a keyword")
+      alert("You must enter a keyword");
+    } else {
+      navigate("/search/" + searchText);
     }
-    else {
-      navigate('/search/' + searchText)
-    }
-  }
+  };
   const getSearchText = (event) => {
     const value = event.target.value;
     setSearchText(value.trim());
-  }
+  };
 
   useEffect(() => {
     let progressBarHandler = () => {
@@ -99,14 +101,26 @@ export default function Header() {
               {t("category")}
             </NavLink>
           </li>
+          {userLoginData?.user_role === "1" && (
+            <li className="menu__item">
+              <NavLink
+                to="/admin/posts"
+                className={({ isActive }) =>
+                  "menu__link" + (isActive ? " home__active" : "")
+                }
+              >
+                {t("posting")}
+              </NavLink>
+            </li>
+          )}
           <li className="menu__item">
             <NavLink
-              to="/admin/posts"
+              to="/admin/note"
               className={({ isActive }) =>
-                "menu__link" + (isActive ? " home__active" : "")
+                "menu__link" + (isActive ? " language__active" : "")
               }
             >
-              {t("posting")}
+              {t("note")}
             </NavLink>
           </li>
         </ul>
@@ -122,8 +136,10 @@ export default function Header() {
               className="search__input"
               onChange={getSearchText}
             />
-            <div className="search__auto"
-              style={{ visibility: searchText !== "" ? "visible" : "hidden" }}>
+            <div
+              className="search__auto"
+              style={{ visibility: searchText !== "" ? "visible" : "hidden" }}
+            >
               {AutoSearch(searchText)}
             </div>
             <button type="submit" className="search__button">
@@ -172,7 +188,6 @@ export default function Header() {
           >
             EN
           </a>
-
         </div>
         <div onClick={() => themeChange()}>
           {theme === "light" ? (
@@ -209,17 +224,29 @@ export default function Header() {
           >
             {t("posting")}
           </NavLink>
+          <NavLink
+            to="/admin/note"
+            className={({ isActive }) =>
+              "menu__link" + (isActive ? " language__active" : "")
+            }
+          >
+            {t("note")}
+          </NavLink>
           <a className="menu__link" onClick={() => setOpenSearch(true)}>
             {t("search")}
           </a>
           <a
-            className={i18n.language === "vn" ? "language__active" : "menu__link"}
+            className={
+              i18n.language === "vn" ? "language__active" : "menu__link"
+            }
             onClick={() => handleChange("vn")}
           >
             Tiếng Việt
           </a>
           <a
-            className={i18n.language === "en" ? "language__active" : "menu__link"}
+            className={
+              i18n.language === "en" ? "language__active" : "menu__link"
+            }
             onClick={() => handleChange("en")}
           >
             English

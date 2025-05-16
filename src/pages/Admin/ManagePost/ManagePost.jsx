@@ -1,41 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import "./ManagePost.css";
-import { AddPostAction, ResetSuccess, UpdatePostAction } from '../../../redux/actions/PostAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
-import QuillEditor from '../../../components/TextEditor/QullEditor';
+import {
+  AddPostAction,
+  ResetSuccess,
+  UpdatePostAction,
+} from "../../../redux/actions/PostAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
+import QuillEditor from "../../../components/TextEditor/QullEditor";
 
 export default function ManagePost() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const postEditData = useSelector(state => state.PostReducer.postEdit);
+  const postEditData = useSelector((state) => state.PostReducer.postEdit);
   let { id } = useParams();
   const [formData, setFormData] = useState({
-    postTitle: postEditData.postTitle || '',
-    postDescription: postEditData.postDescription || '',
-    postType: postEditData.postType || '',
-    postTags: postEditData.postTags || '',
-    postImage: postEditData.postImage || '',
+    postTitle: postEditData.postTitle || "",
+    postDescription: postEditData.postDescription || "",
+    postType: postEditData.postType || "",
+    postTags: postEditData.postTags || "",
+    postImage: postEditData.postImage || "",
   });
-  const binSizes = useSelector(state => state.PostReducer.binSizes);
+  const binSizes = useSelector((state) => state.PostReducer.binSizes);
   const autoGetBinIndex = (binSizes) => {
     if (!Array.isArray(binSizes) || binSizes.length === 0) return 0;
-  
+
     for (let i = 0; i < binSizes.length; i++) {
       if (binSizes[i].startPostId === null) {
         return i - 1 >= 0 ? i - 1 : 0;
       }
     }
-  
+
     return binSizes.length - 1; // Trả về bin cuối cùng nếu không có bin nào có startPostId = null
   };
-  const [editorText, setEditorText] = useState(postEditData.postContent || '');
-  const postListData = useSelector(state => state.PostReducer.posts);
+  const [editorText, setEditorText] = useState(postEditData.postContent || "");
+  const postListData = useSelector((state) => state.PostReducer.posts);
   const { success, error } = useSelector((state) => state.PostReducer);
   const [selectedBin, setSelectedBin] = useState(autoGetBinIndex(binSizes)); // Default to Bin 0
-  const postTypeData = useSelector(state => state.PostReducer.postTypes);
+  const postTypeData = useSelector((state) => state.PostReducer.postTypes);
   const onSubmit = (e) => {
     e.preventDefault();
     const date = new Date().toLocaleString();
@@ -44,21 +48,21 @@ export default function ManagePost() {
         ...formData,
         postContent: editorText,
         postDate: date,
-        postId: id
+        postId: id,
       };
       dispatch(UpdatePostAction(selectedBin, dataEdit));
     } else {
-      let maxValueOfY = Math.max(...postListData.map(o => o.postId), 0);
+      let maxValueOfY = Math.max(...postListData.map((o) => o.postId), 0);
       let dataPost = {
         ...formData,
         postContent: editorText,
         postDate: date,
-        postId: maxValueOfY + 1
+        postId: maxValueOfY + 1,
       };
-
       dispatch(AddPostAction(selectedBin, dataPost));
     }
   };
+
   const handleContentChange = (content) => {
     setEditorText(content); // Update the state with new content
   };
@@ -66,12 +70,12 @@ export default function ManagePost() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
   useEffect(() => {
     if (success === true) {
-      toast.success('Successfully!');
+      toast.success("Successfully!");
       dispatch(ResetSuccess());
     }
     if (error !== null) {
@@ -169,16 +173,22 @@ export default function ManagePost() {
               <span className="alert__item"> *</span>
             </p>
             <QuillEditor value={editorText} onChange={handleContentChange} />
-            <div className='bottom__button'>
-              <select className="bin__select" value={selectedBin} onChange={(e) => setSelectedBin(e.target.value)}>
-                <option value="0">Bin 0</option>
-                <option value="1">Bin 1</option>
+            <div className="bottom__button">
+              <select
+                className="bin__select"
+                value={selectedBin}
+                onChange={(e) => setSelectedBin(Number(e.target.value))}
+              >
+                {binSizes.map((_, index) => (
+                  <option key={index} value={index}>
+                    Bin {index}
+                  </option>
+                ))}
               </select>
-              <button className="post__save" type="submit">
+              <button className="post__save" id="adding-submit" type="submit">
                 {t("submit")}
               </button>
             </div>
-
           </div>
         </form>
       </div>

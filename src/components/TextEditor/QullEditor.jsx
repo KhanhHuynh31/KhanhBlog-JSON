@@ -3,6 +3,11 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+// Import JavaScript highlighting explicitly
+import javascript from 'highlight.js/lib/languages/javascript';
+
+// Register JavaScript as the default language
+hljs.registerLanguage('javascript', javascript);
 
 export default function QuillEditor({ value = '', onChange }) {
   const editorRef = useRef(null); 

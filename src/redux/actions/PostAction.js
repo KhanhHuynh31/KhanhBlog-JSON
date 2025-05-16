@@ -14,6 +14,7 @@ export const DELETE_FAILURE = 'DELETE_FAILURE'
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 export const UPDATE_FAILURE = 'UPDATE_FAILURE'
 export const GET_POST_TYPE = 'GET_POST_TYPE'
+export const POSTING_NEW_BIN = 'POSTING_NEW_BIN'
 
 const VITE_POSTS_BIN_IDS = import.meta.env.VITE_POSTS_BIN_IDS.split(',');
 const X_MASTER_KEY = import.meta.env.VITE_X_MASTER_KEY;
@@ -100,6 +101,41 @@ const updatePostsInBin = async (binId, updatedPosts) => {
     );
     return response.data.record;
 };
+export const createBinAndAddData = (newPosts) => async (dispatch) => {
+    try {
+      const initialData = {
+        posts: [
+          {
+            ...newPosts,
+            postId: "1", // Bắt đầu từ postId 1 cho bin mới
+          },
+        ],
+      };
+  
+      const response = await axios.post(
+        "https://api.jsonbin.io/v3/b",
+        initialData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": X_MASTER_KEY,
+          },
+        }
+      );
+      const binId = response.data.metadata.id;
+      dispatch({
+        type: POSTING_NEW_BIN,
+        payload: {
+          binId,
+          newPost: initialData.posts[0],
+        },
+      });
+      return;
+    } catch (error) {
+      console.error("Failed to create bin:", error);
+      throw error;
+    }
+  };
 export const AddPostAction = (binIndex, newPosts) => async (dispatch, getState) => {
     const binId = VITE_POSTS_BIN_IDS[binIndex];
     if (!binId) {

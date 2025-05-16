@@ -8,32 +8,20 @@ import LoadingPage from '../../components/LoadingPage/LoadingPage'
 
 export default function AdminTemplate() {
     const navigate = useNavigate();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const loading = useSelector(state => state.PostReducer.loading);
     const { theme } = useSelector((state) => state.WebReducer);
     useEffect(() => {
         const loginStatus = localStorage.getItem('LOGIN_SUCCESS');
-        const userInfo = JSON.parse(loginStatus);
         if (!loginStatus) {
             alert("Vui lòng đăng nhập để có thể đăng bài !");
             navigate('/home');
-        } else {
-            if (userInfo.user_role === "1") {
-                setIsAuthenticated(true); // User is authenticated
-            }
-            else {
-                alert("Tài khoản không có quyền truy cập");
-                navigate('/home');
-            }
         }
     }, [navigate]);
     const [openMenu, setOpenMenu] = useState(false);
     const handleChildData = (data) => {
         setOpenMenu(data);
     };
-    if (!isAuthenticated) {
-        return null;
-    }
+
     return (
         <Fragment>
             <div

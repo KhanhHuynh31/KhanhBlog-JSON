@@ -12,6 +12,7 @@ import { FcManager } from "react-icons/fc";
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT_SUCCESS } from '../../../../redux/actions/UserActions';
 import { CiStickyNote } from "react-icons/ci";
+
 export default function AdminMenu() {
   const { t, i18n } = useTranslation();
   const [dropdown, setDropdown] = useState(true);
@@ -24,6 +25,7 @@ export default function AdminMenu() {
       navigate('/login');
     };
   }, [userLoginData, navigate]);
+
   return (
     <div className="admin__menu">
       <div className="menu__list">
@@ -39,9 +41,12 @@ export default function AdminMenu() {
             <span>{t("home")}</span>
           </li>
           <li>
-            <NavLink to="note" className={({ isActive }) =>
-              `admin__link list__item${isActive ? ' active__admin' : ''}`
-            }    >
+            <NavLink
+              to="note"
+              className={({ isActive }) =>
+                `admin__link list__item${isActive ? " active__admin" : ""}`
+              }
+            >
               <div className="admin__icon">
                 <CiStickyNote className="logo__icon" />
                 <span>{t("note")}</span>
@@ -65,10 +70,10 @@ export default function AdminMenu() {
             </div>
           </li>
           <li
-            className={`list__item option__list ${dropdown ? "" : "open__list"
-              }`}
+            className={`list__item option__list ${
+              dropdown ? "" : "open__list"
+            }`}
           >
-            {" "}
             <NavLink to="/home" className={"admin__link"}>
               <div className="admin__icon">
                 <span className="logo__icon">o</span>
@@ -77,8 +82,9 @@ export default function AdminMenu() {
             </NavLink>
           </li>
           <li
-            className={`list__item option__list ${dropdown ? "" : "open__list"
-              }`}
+            className={`list__item option__list ${
+              dropdown ? "" : "open__list"
+            }`}
           >
             <NavLink to="/category" className={"admin__link"}>
               <div className="admin__icon">
@@ -88,8 +94,9 @@ export default function AdminMenu() {
             </NavLink>
           </li>
           <li
-            className={`list__item option__list ${dropdown ? "" : "open__list"
-              }`}
+            className={`list__item option__list ${
+              dropdown ? "" : "open__list"
+            }`}
           >
             <NavLink to="/login" className={"admin__link"}>
               <div className="admin__icon">
@@ -98,31 +105,39 @@ export default function AdminMenu() {
               </div>
             </NavLink>
           </li>
-          <li className="label__menu">
-            <span>{t("manage")}</span>
-          </li>
-
-
-          <li>
-            <NavLink to="posts" className={({ isActive }) =>
-              `admin__link list__item${isActive ? ' active__admin' : ''}`
-            }    >
-              <div className="admin__icon">
-                <ImBlog className="logo__icon" />
-                <span> {t("posting")}</span>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="list" className={({ isActive }) =>
-              `admin__link list__item${isActive ? ' active__admin' : ''}`
-            }    >
-              <div className="admin__icon">
-                <CiViewList className="logo__icon" />
-                <span> {t("list post")}</span>
-              </div>
-            </NavLink>
-          </li> 
+          {userLoginData?.user_role === "1" && (
+            <>
+              <li className="label__menu">
+                <span>{t("manage")}</span>
+              </li>
+              <li>
+                <NavLink
+                  to="posts"
+                  className={({ isActive }) =>
+                    `admin__link list__item${isActive ? " active__admin" : ""}`
+                  }
+                >
+                  <div className="admin__icon">
+                    <ImBlog className="logo__icon" />
+                    <span> {t("posting")}</span>
+                  </div>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="list"
+                  className={({ isActive }) =>
+                    `admin__link list__item${isActive ? " active__admin" : ""}`
+                  }
+                >
+                  <div className="admin__icon">
+                    <CiViewList className="logo__icon" />
+                    <span> {t("list post")}</span>
+                  </div>
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <div className="account__menu">
@@ -134,11 +149,13 @@ export default function AdminMenu() {
           </div>
         </div>
 
-        <div className="logout__menu"
+        <div
+          className="logout__menu"
           onClick={() => {
-            const action = { type: LOGOUT_SUCCESS }
+            const action = { type: LOGOUT_SUCCESS };
             dispatch(action);
-          }}>
+          }}
+        >
           <IoIosPower className="logout__icon" />
           <div className="overlay__text">Log out</div>
         </div>

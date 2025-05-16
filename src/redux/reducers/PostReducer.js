@@ -10,6 +10,7 @@ import {
   GET_POST_EDIT,
   POST_SEARCH,
   FETCH_REQUSET,
+  POSTING_NEW_BIN,
 } from '../actions/PostAction';
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
   postEdit: {},
   postSearch: [],
   postTypes: [],
-  postTags: []
+  postTags: [],
+  binList: [],
 };
 
 export const PostReducer = (state = initialState, action) => {
@@ -47,6 +49,13 @@ export const PostReducer = (state = initialState, action) => {
         binSizes: action.payload.binSizes
       };
     }
+    case POSTING_NEW_BIN: {
+      return {
+        ...state,
+        binList: action.payload,
+        success: true,
+      };
+    }
     //POSTING
     case POSTING_SUCCESS: {
       return {
@@ -63,7 +72,6 @@ export const PostReducer = (state = initialState, action) => {
     }
     //UPDATE
     case UPDATE_SUCCESS: {
-      console.log('UPDATE_SUCCESS', action.payload);
       return {
         ...state,
         success: true,
