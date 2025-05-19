@@ -17,6 +17,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import parse from "html-react-parser";
 import toast from "react-hot-toast";
 import QuillEditor from "../../../components/TextEditor/QullEditor";
+import { loginUser } from "../../../redux/actions/UserActions";
 
 export default function Note() {
   const noteListData = useSelector((state) => state.NoteReducer.noteData);
@@ -35,6 +36,7 @@ export default function Note() {
     note_title: "",
     note_type: "",
   });
+
   useEffect(() => {
     if (success !== "") {
       toast.success(success);
@@ -53,6 +55,12 @@ export default function Note() {
       resetForm();
     }
   }, [id, noteEditData]);
+    useEffect(() => {
+    // If not logged in, auto login as guest
+    if (!userData || !userData.user_name) {
+      dispatch(loginUser("guest", "guest123"));
+    }
+  }, [userData, dispatch]);
   const resetForm = () => {
     setFormData({ note_title: "", note_type: "" });
     setEditorText("");

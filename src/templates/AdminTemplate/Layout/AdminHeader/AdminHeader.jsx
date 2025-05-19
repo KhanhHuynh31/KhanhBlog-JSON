@@ -45,7 +45,7 @@ export default function AdminHeader({ onSendData }) {
           <span className="link__text"> {t("home")}</span>{" "}
         </NavLink>
         <NavLink
-          to="/note"
+          to="/admin/note"
           className={({ isActive }) =>
             "header__link" + (isActive ? " admin__active" : "")
           }
