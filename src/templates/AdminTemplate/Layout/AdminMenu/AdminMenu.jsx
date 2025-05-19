@@ -156,6 +156,7 @@ export default function AdminMenu() {
           onClick={() => {
             const action = { type: LOGOUT_SUCCESS };
             dispatch(action);
+            navigate("/login");
           }}
         >
           <IoIosPower className="logout__icon" />
