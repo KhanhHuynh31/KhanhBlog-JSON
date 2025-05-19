@@ -1,16 +1,48 @@
-<<<<<<< HEAD
-# khanh_blog
-=======
-# React + Vite
+# Personal Tech Blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a personal blog web application built with **ReactJS**, **Redux**, and **React Router**, designed to share knowledge about React and programming.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User authentication with role-based access (admin and user)
+- Admin can create, edit, and delete blog posts
+- Search posts by title
+- Filter posts by category and tags
+- Pagination for efficient post browsing
+- Multi-language support (e.g., English and Vietnamese)
+- Dark and light mode toggle
+- Responsive design optimized for mobile devices
+- Data persistence using Json Bin API
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> 030d9b5 (first commit)
+- ReactJS
+- Redux
+- React Router
+- Json Bin API for backend storage
+- LocalStorage for session management
+
+## Installation
+
+1. Clone the repository  
+   `git clone https://github.com/yourusername/your-repo-name.git`
+
+2. Install dependencies  
+   `npm install`
+
+3. Run the development server  
+   `npm start`
+
+## Usage
+
+- Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+- Use admin credentials to log in and manage posts.
+- Switch languages and toggle dark/light mode from the UI.
+
+## Contributing
+
+Feel free to fork this project and submit pull requests.
+
+## License
+
+This project is open-source and available under the MIT License.
