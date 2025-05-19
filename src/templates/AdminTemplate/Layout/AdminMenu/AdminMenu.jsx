@@ -145,7 +145,9 @@ export default function AdminMenu() {
           <FcManager className="logo__icon" />
           <div>
             <p>{userLoginData?.user_name}</p>
-            <span>Manager</span>
+            <span>
+               {userLoginData?.user_role === "2" ? "Role: Guest" : "Role: Admin"}
+            </span>
           </div>
         </div>
 
