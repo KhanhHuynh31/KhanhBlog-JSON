@@ -17,7 +17,7 @@ export default function Footer() {
                         <a href='https://www.facebook.com/huynhkhanh2k/' target="_blank" rel="noopener noreferrer">
                             <p className='footer__facebook'>f</p>
                         </a>
-                        <a href='https://github.com/quoc-khanh-31' target="_blank" rel="noopener noreferrer">
+                        <a href='https://github.com/KhanhHuynh31/KhanhBlog-JSON' target="_blank" rel="noopener noreferrer">
                             <p className='footer__github'>G</p>
                         </a>
                     </div>
