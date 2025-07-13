@@ -1,4 +1,7 @@
 # Personal Tech Blog
+<img width="1755" height="3426" alt="image" src="https://github.com/user-attachments/assets/0420e66a-82bd-41b4-bb7d-2b2dd565c973" />
+
+Link website: https://khanh-blog-json.vercel.app
 
 This is a personal blog web application built with **ReactJS**, **Redux**, and **React Router**, designed to share knowledge about React and programming.
 
